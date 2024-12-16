@@ -1,0 +1,41 @@
+body {
+    background-color: #000;
+    color: #fff; 
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; 
+}
+.contacto-container {
+    margin-top: 30px;
+    padding: 20px;
+    flex: 1; 
+}
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+#btnEnviarCorreo {
+    background-color: red;
+    color: white;
+    border: none;
+}
+#btnEnviarCorreo:hover {
+    background-color: darkred;
+}
+.form-control {
+    background-color: #fff; 
+    color: #000; 
+}
+.nav-link {
+    color: red;
+}
+.footer {
+    background-color: #000; 
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+.footer a {
+    color: red;
+    text-decoration: none;
+}
