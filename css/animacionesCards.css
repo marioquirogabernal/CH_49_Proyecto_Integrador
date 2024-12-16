@@ -1,0 +1,62 @@
+.card-img-top {
+    padding-top: 10px; 
+    height: 150px;
+    width: 150px;
+    border-radius: 50%; /*Hace que la imagen sea circular */
+    object-fit: cover; /*Ajusta la imagen para que se recorte adecuadamente */
+    display: block; /*Asegura que la imagen sea tratada como un bloque */
+    margin: 0 auto; 
+    transition: transform 0.5s ease; /*Transición para animaciones */
+    border: 1px solid #007BFF;
+}
+
+.card-img-top:hover {
+    transform: scale(1.1); /*Aumenta el tamaño al pasar el cursor */
+}
+
+.card {
+    transition: box-shadow 0.5s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: none;
+    overflow: hidden; /*vita que los elementos se desborden */
+}
+
+.card-img-top {
+    padding-top: 0px; 
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    object-fit: cover;/*asegura que la imagen cubra todo el área disponible del contenedor*/
+    display: block;
+    margin-top:10px;
+
+    transition: transform 0.5s ease;
+}
+
+.card-body, .list-group {
+    display: none; /*Oculta descripción y enlaces */
+}
+
+.card:hover .card-body, .card:hover .list-group {
+    display: block; /*Muestra la descripción y enlaces al pasar el cursor */
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px rgba(8, 196, 243, 0.3);
+}
+
+.card-title {
+    margin-top: 10px;
+    font-size: 1.25rem;
+}
+
+.card-img-top.hero_img {
+    transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+    opacity: 0;
+    transform: translateX(100%);
+}
+
+.card-img-top.hero_img.unset {
+    opacity: 1;
+    transform: translateX(0);
+}
