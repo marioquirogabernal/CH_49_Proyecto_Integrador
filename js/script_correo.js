@@ -32,9 +32,12 @@ function validarEmail() {
     return regex.test(email);
 }
 
+
 function validarTelefono(){
-    //Aqui poner las validaciones de Telefono
-    return true
+    if(txtTelefono.length<=0){
+        return false;
+    }
+    return true;
 }
 function validarMensaje(){
     //Aqui poner las validaciones del Mensaje
@@ -80,5 +83,31 @@ btnEnviarCorreo.addEventListener("click", (event) =>{
         formulario.submit(); // Enviar el formulario si todo está validado
     }
 
+
+    txtTelefono.value = txtTelefono.value.trim();
+    txtTelefono.style.border = "";
+
+      if(txtTelefono.value.length<8){
+        txtTelefono.style.border=" solid red medium";
+        alertValidacionesTexto.innerHTML="<strong>Introduzca un numero de telefono valido</strong>";
+        alertValidaciones.style.display="block";
+        isValid=false
+    }
+    if(Number(txtTelefono.value)<=99999){
+        txtTelefono.style.border=" solid red medium";
+        alertValidacionesTexto.innerHTML="<strong>Introduzca un numero de telefono valido</strong>";
+        alertValidaciones.style.display="block";
+        isValid=false
+    
+    }
+    if(txtTelefono.value.length>15){
+        txtTelefono.style.border=" solid red medium";
+        alertValidacionesTexto.innerHTML="<strong>Introduzca un numero de telefono valido</strong>";
+        alertValidaciones.style.display="block";
+        isValid=false
+    }
+    else{
+        localStorage.setItem("Telefono", txtTelefono.value);
+    }
 
 })
