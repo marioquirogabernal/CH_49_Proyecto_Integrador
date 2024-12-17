@@ -42,8 +42,9 @@ function validarTelefono() {
 
 
 function validarMensaje(){
-    //Aqui poner las validaciones del Mensaje
-    return true
+    let mensaje = txtMensaje.value.trim();
+    let regex = /^[a-z0-9_-]{3,300}$/;
+    return regex.test(mensaje);
 }   
 
 
@@ -99,7 +100,8 @@ btnEnviarCorreo.addEventListener("click", (event) =>{
     event.preventDefault();
     let isValid = true;
     txtEmail.style.border = "";
-    txtEmail.value = txtEmail.value.trim();;
+    txtEmail.value = txtEmail.value.trim();
+
     alertValidacionesTexto.innerHTML = "";
     alertValidaciones.style.display = "none";
 
@@ -109,6 +111,8 @@ btnEnviarCorreo.addEventListener("click", (event) =>{
     txtTelefono.value = txtTelefono.value.trim();
     txtTelefono.style.border = "";
 
+    txtMensaje.style.border = "";
+    txtMensaje.value = txtMensaje.value.trim();
     
 
     if(!validarName()){
@@ -133,7 +137,12 @@ btnEnviarCorreo.addEventListener("click", (event) =>{
         isValid = false; //bandera
     }//!validarTelefono
 
-
+    if(!validarMensaje()){
+        txtMensaje.style.border = "solid red medium";
+        alertValidacionesTexto.innerHTML += "<br/><strong>Mensaje no válido</strong>";
+        alertValidaciones.style.display = "block";
+        isValid = false;
+    }//Validación del mensaje
 
     if (isValid) {
         console.log("enviando correo");
