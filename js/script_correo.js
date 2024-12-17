@@ -2,53 +2,150 @@ const txtNombre = document.getElementById("txtNombre")
 const txtEmail = document.getElementById("txtEmail")
 const txtTelefono = document.getElementById("txtTelefono")
 const txtMensaje = document.getElementById("txtMensaje")
-const btnEnviarCorreo = document.getElementById("btnEnviarCorreo")
-const formulario = document.getElementById("miFormulario");
+const btnEnviarCorreo = document.getElementById("btnEnviarCorreo");
+//const formulario = document.getElementById("miFormulario");
+
 const alertValidaciones = document.getElementById("alertValidaciones");
 const alertValidacionesTexto = document.getElementById("alertValidacionesTexto");
 
-function validarNombre(){
-    //Aqui poner las validaciones de Nombre
-    return true
-}
+//Creacion de funcion validar nombre.
+function validarName(){
+    const name = txtNombre.value.trim();
+    const reGex = /^[A-Za-z _-]{3,25}$/;
+    return reGex.test(name);
+}//funcionValidarName
 
+
+//Creacion de funcion validar email.
 function validarEmail() {
     const email = txtEmail.value.trim();
     const regex = /^[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+$/;
     return regex.test(email);
 }
 
-function validarTelefono(){
-    //Aqui poner las validaciones de Telefono
-    return true
+//Creacion de funcion validar telefono.
+function validarTelefono() {
+    const telefono = txtTelefono.value.trim();
+    const regexTelefono = /^[0-9]{10}$/; // Solo números, 10 dígitos
+
+    if (telefono === "") {
+        return false; // El campo está vacío
+    }
+
+    if (!regexTelefono.test(telefono)) {
+        return false; // No cumple con el formato de 10 dígitos
+    }
+
+    return true; // El número es válido
 }
+
+
+
 function validarMensaje(){
     //Aqui poner las validaciones del Mensaje
     return true
 }   
 
+
+async function enviarCorreo() {
+    try {
+        const response = await fetch("https://cors-anywhere.herokuapp.com/https://api.mailersend.com/v1/email", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer mlsn.34b759039b519a98f11af28dc6ea67fabd41da3bb28b6505b92ad659b86005b4",
+            },
+            body: JSON.stringify({
+                from: {
+                    email: "TECHNOLOGY_SHOP@trial-pxkjn41e1kplz781.mlsender.net",
+                },
+                to: [
+                    {
+                        email: txtEmail.value.trim(), //Correo al cual se le va a enviar
+                    },
+                ],
+                subject: `${txtNombre.value}, gracias por ponerte en contacto con TECHNOLOGY-SHOP`, // Asunto del correo
+                personalization: [
+                    {
+                        email: txtEmail.value.trim(),
+                        data: {
+                            asunto: "¡Gracias por ponerte en contacto con nosotros!", // Personalización del asunto
+                            mensaje: `${txtNombre.value}, 
+                            queremos agradecerte por haberte tomado el tiempo. 
+                            
+                            Hemos recibido la información que nos has proporcionado y la estamos revisando. 
+                            Nuestro equipo se pondrá en contacto contigo lo más pronto posible.
+                            
+                            ¡Gracias por confiar en nosotros!
+                    
+                            Atentamente,  
+                            El equipo de Technology-Shop.`, // Mensaje a enviar
+                        },
+                    },
+                ],
+                template_id: "neqvygmm8kdg0p7w", // ID la plantilla
+            }),
+        });
+  
+    } catch (error) {
+        console.error("Error:", error);
+        alert("Ocurrió un error al enviar el correo");
+    }
+  }
+
+
+
 btnEnviarCorreo.addEventListener("click", (event) =>{
     event.preventDefault();
-
     let isValid = true;
     txtEmail.style.border = "";
     txtEmail.value = txtEmail.value.trim();;
     alertValidacionesTexto.innerHTML = "";
     alertValidaciones.style.display = "none";
 
+    txtNombre.style.border = "";
+    txtNombre.value = txtNombre.value.trim();
+
+    txtTelefono.value = txtTelefono.value.trim();
+    txtTelefono.style.border = "";
+
+    
+
+    if(!validarName()){
+        txtNombre.style.border = "solid red medium";
+        alertValidacionesTexto.innerHTML += "<br/> <strong>El nombre no es válido</strong>";
+        alertValidaciones.style.display = "block";
+        isValid = false
+    }
+
     if (!validarEmail()) { // si regresa false
         txtEmail.style.border = "solid red medium";
-        alertValidacionesTexto.innerHTML += "<br/><strong>El email es invalido</strong>";
-
+        alertValidacionesTexto.innerHTML += "<br/><strong>El email no es válido</strong>";
         alertValidaciones.style.display = "block";
         isValid = false; //bandera
     }//!validarEmail
 
 
-    if (validarEmail() && correo && telefono && mensaje) {
-        console.log("enviando correo")
-        formulario.submit(); // Enviar el formulario si todo está validado
-    }
+    if (!validarTelefono()) { // si regresa false la validacion de telefono
+        txtTelefono.style.border = "solid red medium";
+        alertValidacionesTexto.innerHTML += "<br/><strong>El teléfono no es válido</strong>";
+        alertValidaciones.style.display = "block";
+        isValid = false; //bandera
+    }//!validarTelefono
 
+
+
+    if (isValid) {
+        console.log("enviando correo");
+        enviarCorreo();
+    
+        // Aquí se muestra el mensaje con SweetAlert2
+        Swal.fire({
+            title: '¡Gracias por contactarnos!',
+            text: 'Pronto recibirás un correo electrónico de nosotros.',
+            icon: 'success',
+            confirmButtonText: 'Cerrar'
+        });
+    }
 
 })
