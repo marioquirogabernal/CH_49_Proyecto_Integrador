@@ -38,6 +38,9 @@ window.addEventListener("load", function(e){
                     <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="Nosotros.html">Nosotros</a>
                     </li>
+                    <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="formEdicionCreacionProductos.html">Creacion productos</a>
+                    </li>
                 </ul>
                 </div>
                 <ul class="navbar-nav d-flex">
