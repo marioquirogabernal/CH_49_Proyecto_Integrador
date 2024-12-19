@@ -1,0 +1,14 @@
+.input-group {
+    border-radius: 25px;
+    overflow: hidden;
+}
+
+.input-group .form-control {
+    border-right: none; /* Elimina el borde derecho */
+    border-radius: 25px 0 0 25px; /* Redondea solo la parte izquierda */
+}
+
+.input-group .btn {
+    border-left: none; /* Elimina el borde izquierdo */
+    border-radius: 0 25px 25px 0; /* Redondea solo la parte derecha */
+}
