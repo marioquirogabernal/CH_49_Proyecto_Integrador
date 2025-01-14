@@ -40,15 +40,14 @@ function validarTelefono() {
 }
 
 
-
-function validarMensaje(){
+function validarMensaje() {
     let mensaje = txtMensaje.value.trim();
-    let regex = /^[a-z0-9_-]{3,300}$/;
+    let regex = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ _-]{3,300}$/;
     return regex.test(mensaje);
-}   
+}
 
 
-async function enviarCorreo() {
+async function enviarCorreo(subjectAPI,asuntoAPI, MensajeAPI, emailDestinatario) {
     try {
         const response = await fetch("https://cors-anywhere.herokuapp.com/https://api.mailersend.com/v1/email", {
             method: "POST",
@@ -62,25 +61,16 @@ async function enviarCorreo() {
                 },
                 to: [
                     {
-                        email: txtEmail.value.trim(), //Correo al cual se le va a enviar
+                        email: emailDestinatario, //Correo al cual se le va a enviar
                     },
                 ],
-                subject: `${txtNombre.value}, gracias por ponerte en contacto con TECHNOLOGY-SHOP`, // Asunto del correo
+                subject: subjectAPI, // Asunto del correo
                 personalization: [
                     {
-                        email: txtEmail.value.trim(),
+                        email: emailDestinatario,
                         data: {
-                            asunto: "¡Gracias por ponerte en contacto con nosotros!", // Personalización del asunto
-                            mensaje: `${txtNombre.value}, 
-                            queremos agradecerte por haberte tomado el tiempo. 
-                            
-                            Hemos recibido la información que nos has proporcionado y la estamos revisando. 
-                            Nuestro equipo se pondrá en contacto contigo lo más pronto posible.
-                            
-                            ¡Gracias por confiar en nosotros!
-                    
-                            Atentamente,  
-                            El equipo de Technology-Shop.`, // Mensaje a enviar
+                            asunto: asuntoAPI, // Personalización del asunto
+                            mensaje: MensajeAPI, // Mensaje a enviar
                         },
                     },
                 ],
@@ -146,7 +136,42 @@ btnEnviarCorreo.addEventListener("click", (event) =>{
 
     if (isValid) {
         console.log("enviando correo");
-        enviarCorreo();
+        enviarCorreo(`
+            ${txtNombre.value}, gracias por ponerte en contacto con TECHNOLOGY-SHOP`, 
+
+            "¡Gracias por ponerte en contacto con nosotros!",
+
+            `${txtNombre.value}, queremos agradecerte por haberte tomado el tiempo. 
+                            
+                            Hemos recibido la información que nos has proporcionado y la estamos revisando. 
+                            Nuestro equipo se pondrá en contacto contigo lo más pronto posible.
+                            
+                            ¡Gracias por confiar en nosotros!
+                    
+                            Atentamente,  
+                            El equipo de Technology-Shop.`,
+
+            txtEmail.value.trim()
+        );
+
+        enviarCorreo(`
+            Mensaje de Contacto de ${txtNombre.value}`, 
+
+            "Solicitud de contactar",
+
+            `Nombre: ${txtNombre.value}, 
+             Email: ${txtEmail.value}, 
+             Teléfono: ${txtTelefono.value}, 
+             Mensaje: ${txtMensaje.value}, 
+            `,
+
+            "adrianmtcl4@gmail.com"
+
+        );
+
+
+
+
     
         // Aquí se muestra el mensaje con SweetAlert2
         Swal.fire({
