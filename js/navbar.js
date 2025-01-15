@@ -4,12 +4,13 @@ const headTag = document.getElementsByTagName("head").item(0);
 // <link rel="stylesheet" href="./css/header.css" />
 window.addEventListener("load", function(e){
     headTag.insertAdjacentHTML("beforeend",
-        `<link rel="stylesheet" href="./css/header.css" />`
+        `<link rel="stylesheet" href="./css/header.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">`
     );
     
     bodyTag.insertAdjacentHTML("afterbegin", 
         `<div class="container-header">
-        <nav class="navbar navbar-expand-lg bg-body-tertiar">
+        <nav class="navbar navbar-expand-lg border-body-tertiar" data-bs-theme="dark">
             <div class="container-fluid container-header">
             <div class="col-sm">
                 <a class="navbar-brand nav-link" href="index.html">
@@ -50,7 +51,7 @@ window.addEventListener("load", function(e){
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="#">Registrarse</a>
                 </li>
-                <a class="nav-link" aria-current="page" href="#">Carrito</a>
+                <a class="nav-link" aria-current="page" href="#"><i class="bi bi-cart"></i></a>
                 </ul>
             </div>
             </div>
