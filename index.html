@@ -1,22 +1,286 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Principal</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Custom styles for this template -->
+    <link href="./css/styleIndex.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./css/card_productos.css">
 </head>
-<body>
-    <!-- Aqui va el navbar -->
-    <!-- Aqui va el contenido -->
-    <!-- Aqui va el footer -->
-    
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<body>
+    <div class="hero_area">
+        <div class="hero_social">
+            <a href="https://www.facebook.com" target="_blank">
+                <i class="bi bi-facebook"></i>
+            </a>
+            <a href="https://www.instagram.com" target="_blank">
+                <i class="bi bi-instagram"></i>
+            </a>
+        </div>
+        <!-- slider section -->
+        <section class="slider_section ">
+            <div id="customCarousel1" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="container-fluid ">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="detail-box">
+                                        <h2>
+                                            PC gaming
+                                        </h2>
+                                        <p>
+                                            Equipos gaming para disfrutar al maximo de tus juegos favoritos.
+                                        </p>
+                                        <div class="btn-box">
+                                            <a href="./contacto.html" class="btn1">
+                                                Contactar
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="img-box">
+                                        <img src="./img/car1.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item ">
+                        <div class="container-fluid ">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="detail-box">
+                                        <h2>
+                                            Tecnology-Shop
+                                        </h2>
+                                        <p>
+                                            Contamos con una amplia variedad de componentes para personalizar tu pc al
+                                            100%.
+                                        </p>
+                                        <div class="btn-box">
+                                            <a href="./contacto.html" class="btn1">
+                                                Contactar
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="img-box">
+                                        <img src="./img/carrusel3.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item ">
+                        <div class="container-fluid ">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="detail-box">
+                                        <h2>
+                                            Ensamblaje
+                                        </h2>
+                                        <p>
+                                            Componentes a la medida, ideal para gaming, diseño o arquitectura.
+                                        </p>
+                                        <div class="btn-box">
+                                            <a href="./contacto.html" class="btn1">
+                                                Contactar
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="img-box">
+                                        <img src="img/carPcGamer.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <ol class="carousel-indicators">
+                    <li data-target="#customCarousel1" data-slide-to="0" class="active"></li>
+                    <li data-target="#customCarousel1" data-slide-to="1"></li>
+                    <li data-target="#customCarousel1" data-slide-to="2"></li>
+                </ol>
+            </div>
+
+        </section>
+        <!-- end slider section -->
+    </div>
+
+
+    <section class="feature_section layout_padding">
+        <div class="container">
+            <div class="heading_container" p style="Color: white">
+                <h2>
+                    Para cada problema hay una solución. &nbsp;&nbsp; </h2>
+                <p>
+                    TECNOLOGY-SHOP te ofrece una amplia variedad de equipos de computo, desde equipos gaming, escolares
+                    o para
+                    profecionales.</p>
+            </div>
+            <div class="row" p style="color: rgb(255, 255, 255)">
+                <div class="col-sm-6 col-lg-3">
+                    <div class="box">
+                        <div class="img-box">
+                            <img src="img/f1.png" alt="">
+                        </div>
+                        <div class="detail-box">
+                            <h5>
+                                Computadoras ensambladas</h5>
+                            <p>
+                                Equipos ensamblados y listos para usarse. </p>
+                            <a href="./productos.html">
+                                <span>
+                                    ver todos
+                                </span>
+                                <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="box">
+                        <div class="img-box">
+                            <img src="img/f2.png" alt="">
+                        </div>
+                        <div class="detail-box">
+                            <h5>
+                                Componentes para ensamblaje </h5>
+                            <p>
+                                Componentes para personalizar tu pc al 100%.</p>
+                            <a href="./productos.html">
+                                <span>
+                                    ver todos
+                                </span>
+                                <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="box">
+                        <div class="img-box">
+                            <img src="img/f3.png" alt="">
+                        </div>
+                        <div class="detail-box">
+                            <h5>
+                                Perifericos para computadoras
+                            </h5>
+                            <p>
+                                Teclados y mauses gamer para complementar tu pc. </p>
+                            <a href="./productos.html">
+                                <span>
+                                    ver todos
+                                </span>
+                                <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="box">
+                        <div class="img-box">
+                            <img src="img/f4.png" alt="">
+                        </div>
+                        <div class="detail-box">
+                            <h5>Combos gaming y empresarial</h5>
+                            <p>
+                                Combos completos para cumplir tus necesidades</p>
+                            <a href="./productos.html">
+                                <span>
+                                    ver todos
+                                </span>
+                                <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <div class="container">
+        <div class="heading_container heading_center"
+            style="display: flex; justify-content: center;  text-align: center; color: white;">
+            <h2>Productos nuevos</h2>
+        </div>
+        <div class="row">
+
+            <div class="container mt-5">
+                <div class="row g-3 p-2 justify-content-around" id="product_container">
+                    <!-- Aqui termina la card-->
+                </div> <!-- row -->
+            </div> <!-- container -->
+
+        </div>
+    </div>
+
+
+    <section class="shop_section layout_padding">
+        <div class="btn-box">
+            <a href="./productos.html">
+                Ver más
+            </a>
+        </div>
+        </div>
+    </section>
+
+    <!-- end shop section -->
+    <section class="about_section layout_padding">
+        <div class="container  ">
+            <div class="row">
+                <div class="col-md-6 col-lg-7">
+                    <div class="detail-box">
+                        <div class="heading_container">
+                            <h2>
+                                Acerca de nosotros
+                            </h2>
+                        </div>
+                        <p>
+                            Somos Tecnology-Shop, un ecomerce comprometido con ofrecer la mejor experiencia de compra
+                            para nuestros clientes.
+                            Ofrecemos las computadoras de alto rendimiento más destacadas para profesionales en México.
+                            Enfrenta los desafíos más complejos de tu trabajo con el mejor equipo. Ideal para edición de
+                            video, fotografía, renders, diseño 3D, arquitectura, machine learning y big data. Nos
+                            adaptamos a tu presupuesto y requisitos.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- jQery -->
+    <script src="https://byamc31.github.io/VirtualVerseCl/js/jquery-3.4.1.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="https://byamc31.github.io/VirtualVerseCl/js/bootstrap.js"></script>
+
+    <script src="./js/productos.js"></script>
+
+
+    <script src="./js/footer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
     <script src="./js/navbar.js"></script>
-   
+
 </body>
+
 </html>

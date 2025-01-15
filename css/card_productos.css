@@ -5,6 +5,8 @@
     justify-content: center; /* Centra los elementos en el eje vertical */
     align-items: center; /* Centra los elementos en el eje horizontal */
     height: 100%; /* Asegura que ocupe toda la altura disponible */
+    max-width: 320px; /* Limita el ancho de cada c */
+    margin: 10px; /* Espaciado entre las cards */
 }
 
 /* Contenedor de la imagen */
