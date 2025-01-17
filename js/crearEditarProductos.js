@@ -1,41 +1,66 @@
 const productForm = document.getElementById('productForm');
+const boton_subir = document.getElementById('imagenProducto');
+let imagen;
+let items = [];  // Array vacío al inicio
+
+
+let widget_cloudinary = cloudinary.createUploadWidget({
+    cloudName: 'dpyi3icqm',
+    uploadPreset: 'preset_pabs'
+}, (err, result) => {
+    if (!err && result && result.event === 'success') {
+        imagen = result.info.secure_url;
+        //console.log(imagen);
+
+        // Cambiar el texto del label para indicar que la imagen se subió con éxito
+        document.getElementById('imagenLabel').textContent = 'Imagen subida con éxito.';
+    }
+});
+
+boton_subir.addEventListener("click", () => {
+    widget_cloudinary.open();
+}, false);
 
 productForm.addEventListener('submit', function(event) {
   event.preventDefault();
+
   const name = document.getElementById('nombreProducto').value;
-  const img = document.getElementById('imagenProducto').value;
+  const img = imagen
   const description = document.getElementById('descripcionProducto').value;
-  addItem({ name, img, description });
-  productForm.reset();
-  Swal.fire({
+  const precioProducto= document.getElementById('precioProducto').value;
+
+ // Verificar si la imagen está vacía
+ if (!img) {
+    Swal.fire({
+      title: 'Error',
+      text: 'Debes subir una imagen del producto.',
+      icon: 'error',
+      confirmButtonText: 'Cerrar'
+    });
+    return; // Evitar que se envíe el formulario
+  }
+
+  const newProduct = {
+    id: items.length + 1,  
+    name: name,
+    description: description,
+    img: img,
+    price: precioProducto,  
+    category: ''  
+  };
+  // Verificar si ya existen productos en el localStorage
+  let storedItems = JSON.parse(localStorage.getItem('items')) || []; // Si no hay, usar un array vacío
+  storedItems.push(newProduct);  // Agregar el nuevo producto al array
+  // Guardar el array completo de productos en el localStorage
+  localStorage.setItem('items', JSON.stringify(storedItems));
+
+   Swal.fire({
     title: 'Producto agregado correctamente',
     text: 'El producto ha sido añadido',
     icon: 'success',
     confirmButtonText: 'Cerrar'
+    }).then(() => {
+        // Recargar la página después de cerrar el SweetAlert
+        window.location.reload();
+    })
 });
-});
-
-
-function addItem(item){
-    const itemHTML = '<div class="card shadow" style="width: 18rem; border-radius: 15px;">\n' +
-        '    <img src="'+item.img+'" class="card-img-top" alt="image" style="width: 100%; height: 200px; object-fit: contain;">\n' +
-        '    <div class="card-body">\n' +
-        '        <h5 class="card-title text-truncate">'+item.name+'</h5>\n' +
-        '        <p class="card-text text-truncate">'+item.description+'</p>\n' +
-        '        <a href="#" class="btn btn-primary">Add</a>\n' +
-        '    </div>\n' +
-        '</div>\n' +
-        '<br/>';
-    const itemsContainer = document.getElementById("list-items");
-    itemsContainer.innerHTML += itemHTML;
-
-}
-
-
-addItem({'name':'juice',
-    'img':'https://www.gs1india.org/media/Juice_pack.jpg',
-    'description':'Orange and Apple juice fresh and delicious'});
-
-addItem({'name':'Tayto',
-    'img':'https://www.irishtimes.com/polopoly_fs/1.4078148!/image/image.jpg',
-    'description':'Cheese & Onion Chips'})

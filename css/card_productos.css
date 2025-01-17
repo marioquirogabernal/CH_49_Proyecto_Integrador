@@ -29,13 +29,36 @@
 }
 
 /* Letras dentro del card */
-.prodcut_name {
+.product_name {
     color: #8D6969;
-    font-size: 16px; /* Corrige 'size' a 'font-size' */
-    font-weight: 600;
+    font-size: 18px;
+    font-weight: 700;
     text-align: center; /* Centra el texto */
-    margin: 10px 0; /* Agrega un poco de espacio entre los elementos */
+    margin: 10px 0; /* Espaciado */
+    line-height: 1.3; /* Altura de línea */
+    max-height: 2.4em; /* 1.2 (line-height) * 2 líneas */
+    overflow: hidden; /* Oculta el contenido que exceda las dos líneas */
+    display: -webkit-box; /* Se utiliza para habilitar el modo de recorte en bloques */
+    -webkit-box-orient: vertical; /* Configura la orientación del contenedor */
+    line-clamp: 2; /* Limita a 2 líneas */
 }
+
+.product_description {
+    color: #8D6969; /* Color más claro que el nombre */
+    font-size: 16px; /* Tamaño más pequeño que el nombre */
+    font-weight: 400; 
+    text-align: center; /* Centra el texto */
+    margin: 5px 0; 
+    font-style: italic; /* Hace la descripción cursiva*/
+    line-height: 1.5; /* Altura de línea */
+    max-height: 4.5em; /* 1.5 (line-height) * 3 líneas */
+    overflow: hidden; /* Oculta el contenido que exceda las tres líneas */
+    display: -webkit-box; /* Habilita el modo de recorte en bloques */
+    -webkit-box-orient: vertical; /* Configura la orientación del contenedor */
+    line-clamp: 3; /* Limita a 3 líneas */
+}
+
+
 
 .product_price {
     color: #FF0000;
