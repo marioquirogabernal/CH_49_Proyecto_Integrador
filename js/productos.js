@@ -28,6 +28,7 @@ window.addEventListener("load", function () {
     if (savedItems) {
         // Convierte los datos JSON de localStorage a un array de objetos
         const itemsFromStorage = JSON.parse(savedItems);
+        items = [...items, ...itemsFromStorage]; // Concatena los productos del localStorage al array 'items'
         // Agrega cada producto almacenado al contenedor
         itemsFromStorage.forEach(item => addItem(item));
     }

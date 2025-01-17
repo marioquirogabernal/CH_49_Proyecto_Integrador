@@ -26,6 +26,11 @@
               <label for="descripcionProducto" class="form-label">Descripción</label>
               <textarea class="form-control" id="descripcionProducto" rows="3" placeholder="Ingresa la descripción del producto" required></textarea>
             </div>
+            <div class="mb-3">
+              <label for="precioProducto" class="form-label">Precio</label>
+              <input type="number" class="form-control" id="precioProducto" placeholder="Ingresa el precio del producto" min="1" required>
+              <div id="precioError" class="text-danger" style="display: none;">El precio debe ser mayor a 0.</div>
+          </div>
             <button type="submit" class="btn btn-primary">Agregar Producto</button>
           </form>
         </div>
