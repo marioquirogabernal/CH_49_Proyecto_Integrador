@@ -1,18 +1,60 @@
 const productForm = document.getElementById('productForm');
+const txtNombre = document.getElementById(`nombreProducto`);
+const txtDescripcion = document.getElementById(`descripcionProducto`);
+const alertValidaciones = document.getElementById("alertValidaciones");
+const alertValidacionesTexto = document.getElementById("alertValidacionesTexto");
 
-productForm.addEventListener('submit', function(event) {
-  event.preventDefault();
-  const name = document.getElementById('nombreProducto').value;
-  const img = document.getElementById('imagenProducto').value;
-  const description = document.getElementById('descripcionProducto').value;
-  addItem({ name, img, description });
-  productForm.reset();
-  Swal.fire({
-    title: 'Producto agregado correctamente',
-    text: 'El producto ha sido añadido',
-    icon: 'success',
-    confirmButtonText: 'Cerrar'
-});
+function validacionNombre(){//Validacion del nombre
+    const name = txtNombre.value.trim();
+    const reGex = /^[A-Za-z _-]{3,25}$/;
+    return reGex.test(name);
+}
+function validarDescripcion() {//Validacion de la descripcion
+    let Descripcion = txtDescripcion.value.trim();
+    let regex = /^(?!.*([a-zA-Z0-9])\1\1)[[a-zA-Z0-9]+]{3,250}$/;
+   
+    return regex.test(Descripcion);
+
+}
+
+productForm.addEventListener(`submit`, function(event){//Función de agregacion de item siempre y cuando pase las validaciones
+    event.preventDefault();
+    let isValid = true;
+
+    alertValidacionesTexto.innerHTML = "";
+    alertValidaciones.style.display = "none";
+
+    txtNombre.style.border = "";
+    txtNombre.value = txtNombre.value.trim();
+
+    txtDescripcion.style.border = "";
+    txtDescripcion.value = txtDescripcion.value.trim();
+
+    if(!validacionNombre()){//Disparo de alerta
+        txtNombre.style.border = "solid red medium";
+        alertValidacionesTexto.innerHTML += "<br/> <strong>El nombre no es válido</strong>";
+        alertValidaciones.style.display = "block";
+        isValid = false
+    }
+    if(!validarDescripcion()){//Disparo de alerta
+        txtDescripcion.style.border = "solid red medium";
+        alertValidacionesTexto.innerHTML += "<br/> <strong>Descripcion no valida</strong>";
+        alertValidaciones.style.display = "block";
+        isValid = false
+    }
+    if(isValid){//si es valido pasa a insertarlo
+        const name = document.getElementById('nombreProducto').value;//Se puede cambiar por la cosntate declarada al principio
+        const img = document.getElementById('imagenProducto').value;//Se puede declarar al principio
+        const description = document.getElementById('descripcionProducto').value;// Se puede cambiar por la cosntate declarada al principio
+        addItem({ name, img, description });
+        productForm.reset();
+        Swal.fire({
+            title: 'Producto agregado correctamente',
+            text: 'El producto ha sido añadido',
+            icon: 'success',
+            confirmButtonText: 'Cerrar'
+    });
+    }
 });
 
 

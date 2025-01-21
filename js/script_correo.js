@@ -26,10 +26,10 @@ function validarEmail() {
 //Creacion de funcion validar telefono.
 function validarTelefono() {
     const telefono = txtTelefono.value.trim();
-    const regexTelefono = /^[0-9]{10}$/; // Solo números, 10 dígitos
-
-    if (telefono === "") {
-        return false; // El campo está vacío
+    const regexTelefono = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/; // Solo números, 10 dígitos
+   
+    if (telefono === "0000000000" || telefono === "000-000-0000" || telefono ==="000-0000000"){
+        return false;
     }
 
     if (!regexTelefono.test(telefono)) {
