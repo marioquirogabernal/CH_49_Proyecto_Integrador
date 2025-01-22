@@ -44,13 +44,11 @@ document.getElementById('formularioregistro').addEventListener('submit', functio
     // Causa error
     const numero = telefono.trim(); 
     console.log(numero)
-    /*errorMessage.textContent = '';  
-    successMessage.textContent = ''; 
 
     if (validarNumeroCelular(numero)) {
-        successMessage.textContent = 'Número de celular valido';
-       usuario.telefono = numero
+        usuario.telefono = telefono
     } else {
-        errorMessage.textContent = 'Número de celular invalido';
-    }*/
+        event.preventDefault(); // Evita el envío del formulario
+        alert('Numero Incorrecto');
+    }
 });
