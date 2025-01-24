@@ -44,7 +44,7 @@ function validarMensaje() {
     let mensaje = txtMensaje.value.trim();
     let regex = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ _-]{3,300}$/;
     return regex.test(mensaje);
-}
+}//validación de mensajes
 
 
 async function enviarCorreo(subjectAPI,asuntoAPI, MensajeAPI, emailDestinatario) {
@@ -89,11 +89,13 @@ async function enviarCorreo(subjectAPI,asuntoAPI, MensajeAPI, emailDestinatario)
 btnEnviarCorreo.addEventListener("click", (event) =>{
     event.preventDefault();
     let isValid = true;
-    txtEmail.style.border = "";
-    txtEmail.value = txtEmail.value.trim();
+    
 
     alertValidacionesTexto.innerHTML = "";
     alertValidaciones.style.display = "none";
+
+    txtEmail.style.border = "";
+    txtEmail.value = txtEmail.value.trim();
 
     txtNombre.style.border = "";
     txtNombre.value = txtNombre.value.trim();
@@ -135,7 +137,7 @@ btnEnviarCorreo.addEventListener("click", (event) =>{
     }//Validación del mensaje
 
     if (isValid) {
-        console.log("enviando correo");
+        
         enviarCorreo(`
             ${txtNombre.value}, gracias por ponerte en contacto con TECHNOLOGY-SHOP`, 
 

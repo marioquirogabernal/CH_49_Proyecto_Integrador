@@ -1,7 +1,7 @@
 const imagenes = document.querySelectorAll(".hero_figure")
 
 function triggerAnimation(entries){
-    console.log("me estan llamando")
+    
     entries.forEach(entry =>{
         const image = entry.target.querySelector('img')
         image.classList.toggle('unset', entry.isIntersecting)
