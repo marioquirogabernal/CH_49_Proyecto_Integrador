@@ -37,7 +37,7 @@ window.addEventListener("load", function(e){
                     </li>
 
                     <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="Productos.html">Productos</a>
+                    <a class="nav-link" aria-current="page" href="productos.html">Productos</a>
                     </li>
 
                     <li class="nav-item">
@@ -45,7 +45,7 @@ window.addEventListener("load", function(e){
                     </li>
 
                     <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="Contacto.html">Contactanos
+                    <a class="nav-link" aria-current="page" href="contacto.html">Contactanos
                     </a>
                     </li>
                     
