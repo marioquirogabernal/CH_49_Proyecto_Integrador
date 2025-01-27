@@ -8,7 +8,7 @@ let usuario = {
 
 //Validar numero
 function validarNumeroCelular(numero) {
-    const regex = /^(?!0000000000$)[1-9][0-9]{9}$/;
+    const regex = /^[1-9][0-9]{9}$/; // Solo números, 10 dígitos
     return regex.test(numero);
 }
 

@@ -130,6 +130,7 @@ function buscarProd() {
 
 buttonaddon2.addEventListener("click", function () {
     //para el boton azul de buscar
+    //
     buscarProd();
 });
 
