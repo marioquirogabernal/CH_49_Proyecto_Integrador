@@ -3,18 +3,18 @@ const headTag = document.getElementsByTagName("head").item(0);
 
 const user = sessionStorage.getItem("user");
 
-const datosUsuarios = JSON.parse(localStorage.getItem('datos'));
+//const datosUsuarios = JSON.parse(localStorage.getItem('datos'));
 
 let r = 0;
 
-console.log(datosUsuarios[3]);
+//console.log(datosUsuarios[3]);
 
-datosUsuarios.forEach(element => {
-    r =0;
-    if(element === user){
-        r++;
-    }
-});
+//datosUsuarios.forEach(element => {
+//    r =0;
+//    if(element === user){
+//        r++;
+//    }
+//});
 
 
 // <link rel="stylesheet" href="./css/header.css" />
