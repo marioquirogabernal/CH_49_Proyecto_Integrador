@@ -1,23 +1,39 @@
 const bodyTag = document.getElementsByTagName("body").item(0);
 const headTag = document.getElementsByTagName("head").item(0);
 
+const user = sessionStorage.getItem("user");
+
+const datosUsuarios = JSON.parse(localStorage.getItem('datos'));
+
+let r = 0;
+
+console.log(datosUsuarios[3]);
+
+datosUsuarios.forEach(element => {
+    r =0;
+    if(element === user){
+        r++;
+    }
+});
+
+
 // <link rel="stylesheet" href="./css/header.css" />
 window.addEventListener("load", function () {
     headTag.insertAdjacentHTML("beforeend",
         `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <link rel="stylesheet" href="./css/header.css" />`
     );
-
-    bodyTag.insertAdjacentHTML("afterbegin",
+    if(user != null){
+    bodyTag.insertAdjacentHTML("afterbegin", //cambia esto ---------------------------------------------------------------
         `<div class="container-header">
         <nav class="navbar navbar-expand-lg border-body-tertiar" data-bs-theme="dark">
             <div class="container-fluid container-header">
             
-            <div class="col-sm">
+            <div class="col-1">
                 <a class="navbar-brand nav-link" href="index.html">
                 <img src="./img/logo.png" alt="Logo" width="57" height="57"
                     class="d-inline-block align-text-center" />
-                TECNOLOGY-SHOP
+                
                 </a>
             </div>
 
@@ -52,28 +68,125 @@ window.addEventListener("load", function () {
                     </li>
                 </ul>
                 </div>
+
                 <ul class="navbar-nav d-flex">
 
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="#">Iniciar sesión</a>
-                </li>
+                    <li class="nav-item" style:"color: blue">
+                        <a class="nav-link" aria-current="page" href="#">Bienbenidx ${datosUsuarios[r].nombre}</a>
+                    </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="./Formulario_registro.html">Registrarse</a>
-                </li>
-                <a class="nav-link" aria-current="page" href="#"><i class="bi bi-cart"></i></a>
+                    <li class="nav-item">
+                        <a class="nav-link" id="idExit"aria-current="page" href="#"><i class="bi bi-person-dash-fill"></i></a>
+                    </li>
+
+                    <li class="nav-item">
+                    <a class="nav-link"aria-current="page" href="#"><i class="bi bi-cart"></i></a>
+                    </li>
+
+                </ul>
+
+                <ul class="navbar-nav d-flex">
+                    <li class="nav-item">
+                        <!-- Botón para activar modo nocturno -->
+                        <button id="darkModeToggle" class="btn btn-outline-light ms-3 rounded-circle ">
+                            <i class="bi bi-moon"></i>
+                        </button>
+                    </li>
                 </ul>
                 
-                 <!-- Botón para activar modo nocturno -->
-                <button id="darkModeToggle" class="btn btn-outline-light ms-3 rounded-circle p-2">
-                    <i class="bi bi-moon"></i>
-                </button>
+                
 
             </div>
             </div>
         </nav>
-        </div>`
-    );
+        </div>
+    `)
+
+    const exit = this.document.getElementById("idExit");
+    exit.addEventListener("click", function(){
+        sessionStorage.clear();
+        window.location.href = `./index.html`;
+    });
+
+
+}else{
+        bodyTag.insertAdjacentHTML("afterbegin", 
+            `<div class="container-header">
+            <nav class="navbar navbar-expand-lg border-body-tertiar" data-bs-theme="dark">
+                <div class="container-fluid container-header">
+                
+                <div class="col-1">
+                    <a class="navbar-brand nav-link" href="index.html">
+                    <img src="./img/logo.png" alt="Logo" width="57" height="57"
+                        class="d-inline-block align-text-center" />
+                    
+                    </a>
+                </div>
+    
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+    
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <div class="col-sm">
+    
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="index.html">Inicio</a>
+                        </li>
+    
+                        <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="productos.html">Productos</a>
+                        </li>
+    
+                        <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="Nosotros.html">¿Quiénes somos?</a>
+                        </li>
+    
+                        <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="contacto.html">Contactanos
+                        </a>
+                        </li>
+                        
+                        <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="formEdicionCreacionProductos.html">Creación de productos</a>
+                        </li>
+                    </ul>
+                    </div>
+    
+                    <ul class="navbar-nav d-flex">
+    
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="#">Iniciar sesión</a>
+                        </li>
+    
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="./Formulario_registro.html">Registrarse</a>
+                        </li>
+    
+                        <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="#"><i class="bi bi-cart"></i></a>
+                        </li>
+    
+                    </ul>
+    
+                    <ul class="navbar-nav d-flex">
+                        <li class="nav-item">
+                            <!-- Botón para activar modo nocturno -->
+                            <button id="darkModeToggle" class="btn btn-outline-light ms-3 rounded-circle ">
+                                <i class="bi bi-moon"></i>
+                            </button>
+                        </li>
+                    </ul>
+                    
+                    
+    
+                </div>
+                </div>
+            </nav>
+            </div>`
+        )};
 
     // Comprobar el estado guardado en el Local Storage al cargar la página
     const darkModeToggle = document.getElementById("darkModeToggle");
@@ -99,7 +212,14 @@ window.addEventListener("load", function () {
             localStorage.setItem("darkMode", "disabled");
         }
     });
+
+     
+
+   
 });
+
+
+
 
 // Estilos para modo nocturno
 const style = document.createElement("style");
