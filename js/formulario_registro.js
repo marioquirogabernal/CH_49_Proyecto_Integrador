@@ -100,9 +100,9 @@ registro.addEventListener('submit', function(event) {
     }
 
     if(!validarContraseña2()){
-        txtContraseña.classList.add("is-invalid");
+       //txtContraseña.classList.add("is-invalid");
+       //document.getElementById("errorContraseña").textContent = "La contraseña debe tener al menos 8 caracteres";
         txtConfirmarContraseña.classList.add("is-invalid");
-        document.getElementById("errorContraseña").textContent = "La contraseña debe tener al menos 8 caracteres";
         document.getElementById("errorConfirmarContraseña").textContent = "La contraseña debe tener al menos 8 caracteres";
         isValid = false;
     }
