@@ -27,7 +27,7 @@ window.addEventListener("load", function () {
                 
                 <div class="col-1">
                     <a class="navbar-brand nav-link" href="index.html">
-                    <img src="./img/logo.png" alt="Logo" width="57" height="57"
+                    <img src="./img/logo4.png" alt="Logo" width="57" height="57"
                         class="d-inline-block align-text-center" />
                     
                     </a>
@@ -113,7 +113,7 @@ window.addEventListener("load", function () {
                 
                 <div class="col-1">
                     <a class="navbar-brand nav-link" href="index.html">
-                    <img src="./img/logo.png" alt="Logo" width="57" height="57"
+                    <img src="./img/logo4.png" alt="Logo" width="57" height="57"
                         class="d-inline-block align-text-center" />
                     
                     </a>
@@ -154,7 +154,7 @@ window.addEventListener("load", function () {
                     <ul class="navbar-nav d-flex">
     
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">Iniciar sesión</a>
+                            <a class="nav-link" aria-current="page" href="./login.html">Iniciar sesión</a>
                         </li>
     
                         <li class="nav-item">

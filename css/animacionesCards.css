@@ -44,7 +44,7 @@
 }
 
 .card:hover {
-    box-shadow: 0 8px 16px rgba(8, 196, 243, 0.3);
+    box-shadow: 0 8px 16px #00fff2;
 }
 
 .card-title {

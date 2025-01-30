@@ -39,75 +39,108 @@ function validarContraseña(){
     return false;
 }
 
+function validarContraseña2() {
+    // Obtener los valores de las contraseñas
+    const contraseña = txtContraseña.value;
+    const confirmarContraseña = txtConfirmarContraseña.value;
+
+    // Verificar que las contraseñas no estén vacías
+    if (contraseña === "" || confirmarContraseña === "") {
+        return false;
+    }
+
+    // Verificar que las contraseñas tengan al menos 8 caracteres
+    if (contraseña.length < 8 || confirmarContraseña.length < 8) {
+        return false;
+    }
+
+    // Si todas las condiciones se cumplen
+    return true;
+}
+
+
+
 registro.addEventListener('submit', function(event) {
     event.preventDefault(); 
     let isValid = true;
 
+    // Reiniciar estilos y mensajes previos
     alertValidacionesTexto.innerHTML = "";
     alertValidaciones.style.display = "none";
-    
-    txtName.style.border = "";
-    txtName.value = txtName.value.trim();
 
-    txtTel.style.border = "";
-    txtTel.value = txtTel.value.trim();
-    
-    txtEmail.style.border = "";
-    txtEmail.value = txtEmail.value.trim();
+    document.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+    document.querySelectorAll('.invalid-feedback').forEach(el => el.textContent = '');
 
-    txtContraseña.style.border = "";
-    txtContraseña.value = txtContraseña.value.trim();
-
-    txtConfirmarContraseña.style.border = "";
-    txtConfirmarContraseña.value = txtConfirmarContraseña.value.trim();
-    
+    // Validación de nombre
     if(!validarNombre()){
-        txtName.style.border = "solid red medium";
-        alertValidacionesTexto.innerHTML += "<br/> <strong>El nombre no es válido</strong>";
-        alertValidaciones.style.display = "block";
-        isValid = false
+        txtName.classList.add("is-invalid");
+        document.getElementById("errorNombre").textContent = "El nombre no es válido";
+        isValid = false;
     }
+
+    // Validación de teléfono
     if(!validarNumeroCelular()){
-        txtTel.style.border = "solid red medium";
-        alertValidacionesTexto.innerHTML += "<br/> <strong>Teléfono no válido</strong>";
-        alertValidaciones.style.display = "block";
-        isValid = false
+        txtTel.classList.add("is-invalid");
+        document.getElementById("errorTelefono").textContent = "Teléfono no válido";
+        isValid = false;
     }
+
+    // Validación de email
     if(!validarEmail()){
-        txtEmail.style.border = "solid red medium";
-        alertValidacionesTexto.innerHTML += "<br/> <strong>Correo no valido</strong>";
-        alertValidaciones.style.display = "block";
-        isValid = false
+        txtEmail.classList.add("is-invalid");
+        document.getElementById("errorEmail").textContent = "Correo no válido";
+        isValid = false;
     }
+
+    // Validación de contraseñas
     if(!validarContraseña()){
-        txtConfirmarContraseña.style.border = "solid red medium";
-        alertValidacionesTexto.innerHTML += "<br/> <strong>Las contraseñas deben ser iguales</strong>";
-        alertValidaciones.style.display = "block";
-        isValid = false
+        txtConfirmarContraseña.classList.add("is-invalid");
+        document.getElementById("errorConfirmarContraseña").textContent = "Las contraseñas deben ser iguales";
+        isValid = false;
     }
 
-    
+    if(!validarContraseña2()){
+        txtContraseña.classList.add("is-invalid");
+        txtConfirmarContraseña.classList.add("is-invalid");
+        document.getElementById("errorContraseña").textContent = "La contraseña debe tener al menos 8 caracteres";
+        document.getElementById("errorConfirmarContraseña").textContent = "La contraseña debe tener al menos 8 caracteres";
+        isValid = false;
+    }
+
+    // Si todo está bien, registrar usuario
     if(isValid){
-        const name = txtName.value;
-        const phone = txtTel.value;
-        const Email = txtEmail.value;
-        const pass =txtContraseña.value;
-    
-        //añade usuarios a local storage
         const usuario = {
-            nombre : name,
-            telefono: phone,
-            email : Email,
-            password : pass
+            nombre: txtName.value,
+            telefono: txtTel.value,
+            email: txtEmail.value,
+            password: txtContraseña.value
         };
-        datos.push(usuario);// añade al array
-        localStorage.setItem("datos", JSON.stringify(datos));//añade al local storage
 
-        sessionStorage.setItem("user", Email);
-
+        datos.push(usuario);
+        localStorage.setItem("datos", JSON.stringify(datos));
+        sessionStorage.setItem("user", usuario.email);
         window.location.href = `./index.html`; 
-
     }
-    
-
 });
+
+
+
+
+// Función genérica para manejar la validación en tiempo real
+function validarCampo(input, funcionValidacion, errorId, mensajeError) {
+    if (funcionValidacion()) {
+        input.classList.remove("is-invalid");
+        document.getElementById(errorId).textContent = "";
+    } else {
+        input.classList.add("is-invalid");
+        document.getElementById(errorId).textContent = mensajeError;
+    }
+}
+
+
+//Eventos input para validación en tiempo real
+txtName.addEventListener("input", () => validarCampo(txtName, validarNombre, "errorNombre", "El nombre no es válido"));
+txtTel.addEventListener("input", () => validarCampo(txtTel, validarNumeroCelular, "errorTelefono", "Teléfono no válido"));
+txtEmail.addEventListener("input", () => validarCampo(txtEmail, validarEmail, "errorEmail", "Correo no válido"));
+txtContraseña.addEventListener("input", () => validarCampo(txtContraseña, validarContraseña2, "errorContraseña", "La contraseña debe tener al menos 8 caracteres"));
+txtConfirmarContraseña.addEventListener("input", () => validarCampo(txtConfirmarContraseña, validarContraseña, "errorConfirmarContraseña", "Las contraseñas deben ser iguales"));

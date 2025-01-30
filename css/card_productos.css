@@ -155,3 +155,13 @@ body {
     color: red; /* Ícono de color rojo */
 }
 
+
+.btn-white {
+    background-color: white !important;
+    border: 0px solid #ccc; 
+}
+
+.search-btn i {
+    color: rgb(100, 99, 99) !important;
+}
+

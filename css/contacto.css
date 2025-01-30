@@ -5,15 +5,22 @@ body {
     flex-direction: column;
     min-height: 100vh; 
 }
+
 .contacto-container {
     margin-top: 30px;
     padding: 20px;
     flex: 1; 
 }
+
+
 h2 {
     text-align: center;
     margin-bottom: 20px;
+    margin-top: 20px;
+    font-size: 2rem; /* Aumenta el tamaño de la fuente */
+    font-weight: 600; /* Da más énfasis al texto */
 }
+
 #btnEnviarCorreo {
     background-color: red;
     color: white;
@@ -32,4 +39,208 @@ h2 {
 
 .card{
     border-radius: 24px;
+    width: 870px;
 }
+
+.card-body{
+    border-radius: 24px;
+    box-shadow: 5px 5px 5px 2px rgba(74, 74, 74, 0.4);
+}
+
+
+  /* Para centrar horizontalmente la tarjeta */
+  .container {
+    display: flex;
+    justify-content: center;
+  }
+
+.contenido {
+    display: flex;
+    justify-content: center;
+}
+
+.form {
+    display: grid;
+    align-content: center;
+    padding: 15px;
+}
+
+.form .text {
+    font-size: 16px;
+    height: 30px;
+    width: 265px;
+    border-radius: 5px;
+    border: 2px solid rgba(47, 41, 41, 0.5);
+    padding: 0px 15px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.links {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap; /* Envolver enlaces en pantallas pequeñas */
+}
+
+.link {
+    font-weight: lighter;
+    font-size: 14px;
+    text-decoration: none;
+    padding-right: 20px;
+}
+
+
+/* boton degradado */
+.btn-box input {
+    display: inline-block;
+    background: linear-gradient(#00fff2, #4900FF);
+    color: white;
+    border-radius: 10px;
+    border: 1px solid blue;
+    text-align: center; /* Asegura que el texto esté centrado */
+    font-size: 16px; 
+    font-weight: bolder;
+    cursor: pointer;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    display: flex; /* Flexbox para centrar */
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    height: 40px;
+    width: 100%;
+    max-width: 300px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .btn-box input:hover {
+    filter: brightness(80%);
+    color: #ffffff;
+    -webkit-transform: translateY(-3px);
+            transform: translateY(-3px);
+  }
+
+  .btn-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.img {
+    margin-left: 0;
+    margin-right: 0; 
+    margin-bottom: 45px;
+    width: 300px;
+    height: 300px;
+    border: 5px solid transparent; 
+    max-width: 100%; /* Asegura que la imagen no se extienda más allá del contenedor */
+    height: auto; /* Mantiene la relación de aspecto de la imagen */
+    -webkit-filter: drop-shadow(1px 1px 0 rgb(26, 102, 173))
+                  drop-shadow(-1px -1px 0 rgb(197, 39, 39));
+    filter: drop-shadow(1px 1px 0 rgb(197, 39, 39)) 
+          drop-shadow(-1px -1px 0 rgb(26, 102, 173));
+}
+
+
+@media (max-width: 768px) {
+    .contenido {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .img {
+        margin-left: 0;
+        margin-bottom: 20px;
+        width: 100%; /* La imagen ocupará el 100% del ancho del contenedor */
+        max-width: 250px; /* Limita el tamaño máximo para pantallas más pequeñas */
+        height: auto; /* Mantiene la relación de aspecto */
+    }
+}
+
+.form-entrada {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; /* Centra los elementos dentro del formulario */
+    max-width: 400px; /* Limita el ancho máximo del formulario */
+    width: 100%;  /* Asegura que el formulario ocupe todo el ancho disponible */
+    padding: 20px;
+    margin-right: 20px; /* Deja espacio entre el formulario y la imagen */
+    opacity: 0;
+    animation: fadeInUp 1s ease forwards; /* Animación de entrada */
+}
+
+/* Animación de hover sobre los inputs */
+.form-control:hover {
+    border-color: #00fff2;
+    background-color: #e0f7fa;
+}
+
+
+
+.floating-label {
+            position: relative;
+        }
+        .floating-label label {
+            position: absolute;
+            top: 50%;
+            left: 40px;
+            transform: translateY(-50%);
+            transition: all 0.3s ease;
+            color: gray;
+            pointer-events: none;
+        }
+        .floating-label input:focus + label,
+        .floating-label input:not(:placeholder-shown) + label {
+            top: 5px;
+            left: 10px;
+            font-size: 12px;
+            color: #007bff;
+        }
+
+
+        .img2 {
+            width: 50%;  /* Hace que la imagen ocupe el 50% del ancho disponible */
+            height: auto; /* Mantiene la proporción de la imagen */
+            margin-left: auto;  /* Empuja la imagen hacia la derecha */
+            margin-right: 0px;  /* Asegura que no haya margen derecho */
+            display: block; /* Necesario para que funcione margin-left auto */
+            border-top-right-radius: 14px;  /* Borde superior derecho redondeado */
+            border-bottom-right-radius: 14px;  /* Borde inferior derecho redondeado */
+            box-shadow: 0 8px 16px rgba(0, 255, 242, 0.4); /* Sombra suave alrededor */
+            transition: all 0.3s ease; /* Transición suave al pasar el ratón */
+            object-fit: cover; /* Asegura que la imagen cubra el espacio sin perder proporción */
+        }
+        
+        .img2:hover {
+            transform: scale(1.03); /* Aumenta el tamaño de la imagen ligeramente cuando se pasa el ratón */
+            box-shadow: 0 12px 24px rgba(0, 255, 242, 0.6); /* Sombra más intensa al hacer hover */
+        }
+        
+        
+        @media (max-width: 768px) {
+            .img2 {
+                display: none; /* Oculta la imagen en pantallas pequeñas */
+            }
+        
+            .contenido {
+                flex-direction: column;
+                align-items: center;
+            }
+        
+        }
+        
+
+        .is-invalid {
+            border-color: red !important;
+        }
+        
+        .invalid-feedback {
+            display: block;
+            color: red;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        
