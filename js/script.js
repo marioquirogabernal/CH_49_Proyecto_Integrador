@@ -5,7 +5,7 @@ function triggerAnimation(entries){
     entries.forEach(entry =>{
         const image = entry.target.querySelector('img')
         image.classList.toggle('unset', entry.isIntersecting)
-        console.log(image)
+      
 })
 }
 

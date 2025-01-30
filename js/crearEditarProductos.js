@@ -44,7 +44,7 @@ function validarDescripcion() {
 
 function validarPrecio(){
   let precio = numPrecio.value.trim();
-  if(precio<1){
+  if(precio<0.1){
     return false;
   }
   return true;
@@ -88,7 +88,7 @@ productForm.addEventListener('submit', function(event) {
   }
   if(!validarPrecio()){
     precioProducto.style.border = "solid red medium";
-    alertValidacionesTexto.innerHTML += "<br/> <strong>El precio debe ser mayor a 1</strong>";
+    alertValidacionesTexto.innerHTML += "<br/> <strong>El precio debe ser mayor a 0</strong>";
     alertValidaciones.style.display = "block";
     isValid = false
   }
