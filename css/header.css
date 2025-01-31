@@ -7,6 +7,13 @@
     text-align: center;
 } 
 
+.user-icon {
+    width: 25px; /* Tamaño del icono */
+    height: 25px;
+    border-radius: 50%; /* Hace que la imagen sea circular */
+    object-fit: cover; /* Ajusta la imagen dentro del círculo */
+    vertical-align: middle; /* Alinea con el texto */
+}
 
 /* Footer */
 

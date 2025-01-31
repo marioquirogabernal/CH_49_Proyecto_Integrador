@@ -54,6 +54,11 @@ login.addEventListener('submit', function (event) {
             text: 'Correo o contraseña incorrectos',
             icon: 'error',
             confirmButtonText: 'Intentar de nuevo'
+        }).then(() => {
+            // Limpiar los campos después del error
+            txtEmail.value = '';
+            txtContraseña.value = '';
+            txtEmail.focus(); // Poner el cursor en el campo de email
         });
     }
 });

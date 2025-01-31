@@ -48,7 +48,7 @@ body {
 
 /* Letras dentro del card */
 .product_name {
-    color: rgb(66, 109, 252);
+    /* color: rgb(66, 109, 252); */
     font-size: 18px;
     font-weight: 700;
     text-align: center; /* Centra el texto */

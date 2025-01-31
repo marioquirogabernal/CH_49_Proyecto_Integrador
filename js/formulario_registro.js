@@ -26,11 +26,25 @@ function validarNumeroCelular() {
     return regex.test(numero);
 }//Validar numero
 
-function validarEmail() {
+
+function validarEmailUnico() {
     const email = txtEmail.value.trim();
     const regex = /^[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+$/;
-    return regex.test(email);
-}//validar email
+    if (!regex.test(email)) {
+        return "Correo no válido";
+    }
+    
+    // Verificar si el correo ya está registrado
+    const usuarioExistente = datos.find(usuario => usuario.email === email);
+    if (usuarioExistente) {
+        return "Este correo electrónico ya está registrado.";
+    }
+
+    return "";
+}
+
+
+
 
 function validarContraseñaCompleta() {
     const contraseña = txtContraseña.value.trim();
@@ -90,11 +104,14 @@ registro.addEventListener('submit', function (event) {
     }
 
     // Validación de email
-    if (!validarEmail()) {
-        txtEmail.classList.add("is-invalid");
-        document.getElementById("errorEmail").textContent = "Correo no válido";
-        isValid = false;
-    }
+      // Validación de email
+      const mensajeErrorEmail = validarEmailUnico();
+      if (mensajeErrorEmail) {
+          txtEmail.classList.add("is-invalid");
+          document.getElementById("errorEmail").textContent = mensajeErrorEmail;
+          isValid = false;
+      }
+  
 
     // Validación de contraseñas
     const errorContraseña = validarContraseñaCompleta();
@@ -158,10 +175,19 @@ function validarCampo(input, funcionValidacion, errorId, mensajeError) {
 //Eventos input para validación en tiempo real
 txtName.addEventListener("input", () => validarCampo(txtName, validarNombre, "errorNombre", "El nombre no es válido"));
 txtTel.addEventListener("input", () => validarCampo(txtTel, validarNumeroCelular, "errorTelefono", "Teléfono no válido"));
-txtEmail.addEventListener("input", () => validarCampo(txtEmail, validarEmail, "errorEmail", "Correo no válido"));
 txtContraseña.addEventListener("input", validarYActualizarContraseñas);
 txtConfirmarContraseña.addEventListener("input", validarYActualizarContraseñas);
-
+// Evento de validación en tiempo real del email
+txtEmail.addEventListener("input", () => {
+    const mensajeError = validarEmailUnico();
+    if (mensajeError) {
+        txtEmail.classList.add("is-invalid");
+        document.getElementById("errorEmail").textContent = mensajeError;
+    } else {
+        txtEmail.classList.remove("is-invalid");
+        document.getElementById("errorEmail").textContent = "";
+    }
+});
 
 
  // Función para alternar la visibilidad de la contraseña
