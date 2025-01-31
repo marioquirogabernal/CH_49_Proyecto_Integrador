@@ -1,7 +1,7 @@
 const bodyTag = document.getElementsByTagName("body").item(0);
 const headTag = document.getElementsByTagName("head").item(0);
 
-const user = sessionStorage.getItem("user");
+const user = JSON.parse(sessionStorage.getItem('user'));
 const datosUsuarios = JSON.parse(localStorage.getItem('datos'));
 
 let r = 0;
@@ -14,12 +14,8 @@ window.addEventListener("load", function () {
         <link rel="stylesheet" href="./css/header.css" />`
     );
     if(user != null &&  datosUsuarios != null){
-        datosUsuarios.forEach(element => {
-            r =0;
-            if(element === user){
-                r++;
-            }
-        });
+        const nombreUsuario = user ? user.nombre : "Invitado";
+
         bodyTag.insertAdjacentHTML("afterbegin", //cambia esto ---------------------------------------------------------------
             `<div class="container-header">
             <nav class="navbar navbar-expand-lg border-body-tertiar" data-bs-theme="dark">
@@ -66,18 +62,22 @@ window.addEventListener("load", function () {
                     </div>
 
                     <ul class="navbar-nav d-flex">
-
-                        <li class="nav-item" style:"color: blue">
-                            <a class="nav-link" aria-current="page" href="#">Bienbenidx ${datosUsuarios[r].nombre}</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" id="idExit"aria-current="page" href="#"><i class="bi bi-person-dash-fill"></i></a>
-                        </li>
-
-                        <li class="nav-item">
+                         <li class="nav-item">
                         <a class="nav-link"aria-current="page" href="#"><i class="bi bi-cart"></i></a>
                         </li>
+
+                        <li class="nav-item" style:"color: blue">
+                            <a class="nav-link" aria-current="page" href="#">Bienbenidx ${nombreUsuario}</a>
+                        </li>
+
+                        <li class="nav-item">
+                         <a class="nav-link text-danger fw-bold" id="idExit" aria-current="page" href="#" title="Salir">
+                        <i class="bi bi-box-arrow-right"></i> Salir
+                         </a>
+                        </li>
+
+
+                       
 
                     </ul>
 
@@ -98,12 +98,15 @@ window.addEventListener("load", function () {
             </div>
         `)
 
-        const exit = this.document.getElementById("idExit");
-        exit.addEventListener("click", function(){
-            sessionStorage.clear();
-            window.location.href = `./index.html`;
-        });
-
+        const exit = document.getElementById("idExit");
+        if (exit) {
+            exit.addEventListener("click", function () {
+                sessionStorage.clear();
+                window.location.href = "./index.html";
+            });
+        } else {
+        }
+        
 
     }else{
         bodyTag.insertAdjacentHTML("afterbegin", 
@@ -184,6 +187,8 @@ window.addEventListener("load", function () {
             </div>`
         )};
 
+
+
     // Comprobar el estado guardado en el Local Storage al cargar la página
     const darkModeToggle = document.getElementById("darkModeToggle");
     const savedDarkMode = localStorage.getItem("darkMode");
@@ -236,6 +241,14 @@ style.innerHTML = `
         background-color: #1e2a3a; /* Fondo de los ítems en modo oscuro */
         color: #ffffff; /* Color del texto en modo oscuro */
         border:none; /* Color del borde de los ítems */
+    }
+
+    .dark-mode .link {
+    color: #9ecaff; 
+    }
+
+    .dark-mode .invalid-feedback{
+    color:rgb(235, 97, 81); /* Rojo suave */
     }
     
     /* Modo claro (por defecto) */

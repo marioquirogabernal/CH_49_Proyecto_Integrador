@@ -14,9 +14,9 @@ const registro = document.getElementById(`formularioregistro`);
 const alertValidaciones = document.getElementById("alertValidaciones");
 const alertValidacionesTexto = document.getElementById("alertValidacionesTexto");
 
-function validarNombre(){
+function validarNombre() {
     const name = txtName.value.trim();
-    const reGex = /^[A-Za-z _-]{3,40}$/;
+    const reGex = /^[A-Za-z _-]{3,}$/;
     return reGex.test(name);
 }//Validar nombre
 
@@ -32,36 +32,40 @@ function validarEmail() {
     return regex.test(email);
 }//validar email
 
-function validarContraseña(){
-    if(txtContraseña.value === txtConfirmarContraseña.value){
-        return true;
+function validarContraseñaCompleta() {
+    const contraseña = txtContraseña.value.trim();
+    const confirmarContraseña = txtConfirmarContraseña.value.trim();
+
+    if (contraseña.length < 8) {
+        return "La contraseña debe tener al menos 8 caracteres.";
     }
-    return false;
+
+    if (contraseña !== confirmarContraseña) {
+        return "Las contraseñas deben ser iguales.";
+    }
+
+    return ""; // Sin errores
 }
 
-function validarContraseña2() {
-    // Obtener los valores de las contraseñas
-    const contraseña = txtContraseña.value;
-    const confirmarContraseña = txtConfirmarContraseña.value;
+// Evento de validación en tiempo real
+function validarYActualizarContraseñas() {
+    const error = validarContraseñaCompleta();
 
-    // Verificar que las contraseñas no estén vacías
-    if (contraseña === "" || confirmarContraseña === "") {
-        return false;
+    if (error) {
+        txtContraseña.classList.add("is-invalid");
+        txtConfirmarContraseña.classList.add("is-invalid");
+        document.getElementById("errorContraseña").textContent = error;
+        document.getElementById("errorConfirmarContraseña").textContent = error;
+    } else {
+        txtContraseña.classList.remove("is-invalid");
+        txtConfirmarContraseña.classList.remove("is-invalid");
+        document.getElementById("errorContraseña").textContent = "";
+        document.getElementById("errorConfirmarContraseña").textContent = "";
     }
-
-    // Verificar que las contraseñas tengan al menos 8 caracteres
-    if (contraseña.length < 8 || confirmarContraseña.length < 8) {
-        return false;
-    }
-
-    // Si todas las condiciones se cumplen
-    return true;
 }
 
-
-
-registro.addEventListener('submit', function(event) {
-    event.preventDefault(); 
+registro.addEventListener('submit', function (event) {
+    event.preventDefault();
     let isValid = true;
 
     // Reiniciar estilos y mensajes previos
@@ -72,54 +76,67 @@ registro.addEventListener('submit', function(event) {
     document.querySelectorAll('.invalid-feedback').forEach(el => el.textContent = '');
 
     // Validación de nombre
-    if(!validarNombre()){
+    if (!validarNombre()) {
         txtName.classList.add("is-invalid");
         document.getElementById("errorNombre").textContent = "El nombre no es válido";
         isValid = false;
     }
 
     // Validación de teléfono
-    if(!validarNumeroCelular()){
+    if (!validarNumeroCelular()) {
         txtTel.classList.add("is-invalid");
         document.getElementById("errorTelefono").textContent = "Teléfono no válido";
         isValid = false;
     }
 
     // Validación de email
-    if(!validarEmail()){
+    if (!validarEmail()) {
         txtEmail.classList.add("is-invalid");
         document.getElementById("errorEmail").textContent = "Correo no válido";
         isValid = false;
     }
 
     // Validación de contraseñas
-    if(!validarContraseña()){
+    const errorContraseña = validarContraseñaCompleta();
+
+    if (errorContraseña) {
+        txtContraseña.classList.add("is-invalid");
         txtConfirmarContraseña.classList.add("is-invalid");
-        document.getElementById("errorConfirmarContraseña").textContent = "Las contraseñas deben ser iguales";
+        document.getElementById("errorContraseña").textContent = errorContraseña;
+        document.getElementById("errorConfirmarContraseña").textContent = errorContraseña;
         isValid = false;
+    } else {
+        txtContraseña.classList.remove("is-invalid");
+        txtConfirmarContraseña.classList.remove("is-invalid");
+        document.getElementById("errorContraseña").textContent = "";
+        document.getElementById("errorConfirmarContraseña").textContent = "";
     }
 
-    if(!validarContraseña2()){
-       //txtContraseña.classList.add("is-invalid");
-       //document.getElementById("errorContraseña").textContent = "La contraseña debe tener al menos 8 caracteres";
-        txtConfirmarContraseña.classList.add("is-invalid");
-        document.getElementById("errorConfirmarContraseña").textContent = "La contraseña debe tener al menos 8 caracteres";
-        isValid = false;
-    }
 
     // Si todo está bien, registrar usuario
-    if(isValid){
+    if (isValid) {
         const usuario = {
             nombre: txtName.value,
             telefono: txtTel.value,
             email: txtEmail.value,
             password: txtContraseña.value
         };
-
+        
         datos.push(usuario);
         localStorage.setItem("datos", JSON.stringify(datos));
-        sessionStorage.setItem("user", usuario.email);
-        window.location.href = `./index.html`; 
+        sessionStorage.setItem("user", JSON.stringify(usuario));
+        
+
+        // Aquí se muestra el mensaje de bienvenida con SweetAlert2, incluyendo el nombre del usuario
+        Swal.fire({
+            title: `¡Bienvenido, ${usuario.nombre}!`, 
+            text: 'Estamos felices de tenerte con nosotros. ¡Disfruta de tu experiencia!',
+            icon: 'success',
+            confirmButtonText: '¡Gracias!'
+        }).then(() => {
+            // Después de cerrar la alerta, redirige al usuario
+            window.location.href = `./index.html`;
+        });
     }
 });
 
@@ -142,5 +159,27 @@ function validarCampo(input, funcionValidacion, errorId, mensajeError) {
 txtName.addEventListener("input", () => validarCampo(txtName, validarNombre, "errorNombre", "El nombre no es válido"));
 txtTel.addEventListener("input", () => validarCampo(txtTel, validarNumeroCelular, "errorTelefono", "Teléfono no válido"));
 txtEmail.addEventListener("input", () => validarCampo(txtEmail, validarEmail, "errorEmail", "Correo no válido"));
-txtContraseña.addEventListener("input", () => validarCampo(txtContraseña, validarContraseña2, "errorContraseña", "La contraseña debe tener al menos 8 caracteres"));
-txtConfirmarContraseña.addEventListener("input", () => validarCampo(txtConfirmarContraseña, validarContraseña, "errorConfirmarContraseña", "Las contraseñas deben ser iguales"));
+txtContraseña.addEventListener("input", validarYActualizarContraseñas);
+txtConfirmarContraseña.addEventListener("input", validarYActualizarContraseñas);
+
+
+
+ // Función para alternar la visibilidad de la contraseña
+ function muestraContraseña(inputId, toggleId) {
+    const passwordInput = document.getElementById(inputId);
+    const toggleIcon = document.getElementById(toggleId);
+
+    toggleIcon.addEventListener('click', function() {
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        toggleIcon.innerHTML = '<i class="fas fa-eye-slash"></i>';
+      } else {
+        passwordInput.type = 'password';
+        toggleIcon.innerHTML = '<i class="fas fa-eye"></i>';
+      }
+    });
+  }
+
+  // Aplicar la función a ambos campos de contraseña
+  muestraContraseña('txtContraseña', 'togglePassword');
+  muestraContraseña('txtConfirmarContraseña', 'toggleConfirmPassword');
