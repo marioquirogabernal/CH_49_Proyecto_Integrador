@@ -194,7 +194,7 @@ a:focus {
 .shop_section .btn-box a {
   display: inline-block;
   padding: 10px 50px;
-  background: linear-gradient(#00FFF6,#4900FF);
+  background: linear-gradient(#00fff2, #4900FF);
   color: white;
   border-radius: 5px;
   -webkit-transition: all 0.3s;

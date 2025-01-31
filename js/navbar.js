@@ -1,7 +1,7 @@
 const bodyTag = document.getElementsByTagName("body").item(0);
 const headTag = document.getElementsByTagName("head").item(0);
 
-const user = sessionStorage.getItem("user");
+const user = JSON.parse(sessionStorage.getItem('user'));
 const datosUsuarios = JSON.parse(localStorage.getItem('datos'));
 
 let r = 0;
@@ -13,13 +13,9 @@ window.addEventListener("load", function () {
         `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <link rel="stylesheet" href="./css/header.css" />`
     );
-    if(user != null &&  datosUsuarios != null){
-        datosUsuarios.forEach(element => {
-            r =0;
-            if(element === user){
-                r++;
-            }
-        });
+    if (user != null && datosUsuarios != null) {
+        const nombreUsuario = user ? user.nombre : "Invitado";
+
         bodyTag.insertAdjacentHTML("afterbegin", //cambia esto ---------------------------------------------------------------
             `<div class="container-header">
             <nav class="navbar navbar-expand-lg border-body-tertiar" data-bs-theme="dark">
@@ -55,7 +51,7 @@ window.addEventListener("load", function () {
                         </li>
 
                         <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="contacto.html">Contactanos
+                        <a class="nav-link" aria-current="page" href="contacto.html">Contáctanos
                         </a>
                         </li>
                         
@@ -66,18 +62,26 @@ window.addEventListener("load", function () {
                     </div>
 
                     <ul class="navbar-nav d-flex">
-
-                        <li class="nav-item" style:"color: blue">
-                            <a class="nav-link" aria-current="page" href="#">Bienbenidx ${datosUsuarios[r].nombre}</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" id="idExit"aria-current="page" href="#"><i class="bi bi-person-dash-fill"></i></a>
-                        </li>
-
-                        <li class="nav-item">
+                         <li class="nav-item">
                         <a class="nav-link"aria-current="page" href="#"><i class="bi bi-cart"></i></a>
                         </li>
+
+                        <li class="nav-item" style="color: blue">
+    <a class="nav-link" aria-current="page" href="#">
+                <img src="img/logo2.jpg" class="user-icon" alt="Icono de usuario">
+        <span class="username">Bienvenidx ${nombreUsuario}</span>
+    </a>
+</li>
+
+
+                        <li class="nav-item">
+                         <a class="nav-link text-danger fw-bold" id="idExit" aria-current="page" href="#" title="Salir">
+                        <i class="bi bi-box-arrow-right"></i> Salir
+                         </a>
+                        </li>
+
+
+                       
 
                     </ul>
 
@@ -98,15 +102,18 @@ window.addEventListener("load", function () {
             </div>
         `)
 
-        const exit = this.document.getElementById("idExit");
-        exit.addEventListener("click", function(){
-            sessionStorage.clear();
-            window.location.href = `./index.html`;
-        });
+        const exit = document.getElementById("idExit");
+        if (exit) {
+            exit.addEventListener("click", function () {
+                sessionStorage.clear();
+                window.location.href = "./index.html";
+            });
+        } else {
+        }
 
 
-    }else{
-        bodyTag.insertAdjacentHTML("afterbegin", 
+    } else {
+        bodyTag.insertAdjacentHTML("afterbegin",
             `<div class="container-header">
             <nav class="navbar navbar-expand-lg border-body-tertiar" data-bs-theme="dark">
                 <div class="container-fluid container-header">
@@ -141,7 +148,7 @@ window.addEventListener("load", function () {
                         </li>
     
                         <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="contacto.html">Contactanos
+                        <a class="nav-link" aria-current="page" href="contacto.html">Contáctanos
                         </a>
                         </li>
                         
@@ -182,7 +189,10 @@ window.addEventListener("load", function () {
                 </div>
             </nav>
             </div>`
-        )};
+        )
+    };
+
+
 
     // Comprobar el estado guardado en el Local Storage al cargar la página
     const darkModeToggle = document.getElementById("darkModeToggle");
@@ -209,9 +219,9 @@ window.addEventListener("load", function () {
         }
     });
 
-     
 
-   
+
+
 });
 
 
@@ -237,12 +247,68 @@ style.innerHTML = `
         color: #ffffff; /* Color del texto en modo oscuro */
         border:none; /* Color del borde de los ítems */
     }
+
+    .dark-mode .link {
+    color: #9ecaff; 
+    }
+
+    .dark-mode .invalid-feedback{
+    color:rgb(235, 97, 81); /* Rojo suave */
+    }
+
+
+    .dark-mode .required {
+        color: rgb(235, 97, 81);
+    }
+
+
+    .dark-mode .product_name{
+   color:rgb(63, 151, 252);
+    }
+
     
-    /* Modo claro (por defecto) */
+ .dark-mode .card.card_producto {
+    box-shadow: 0 6px 15px rgba(47, 255, 245, 0.3); /* Sombra suave y difusa */
+    border-radius: 12px; /* Bordes más redondeados para un estilo más moderno */
+    transition: box-shadow 0.3s ease, transform 0.3s ease; /* Transición suave para sombra y transformación */
+}
+
+/* Efecto hover en modo nocturno */
+.dark-mode .card.card_producto:hover {
+    box-shadow: 0 12px 20px rgba(58, 127, 255, 0.5); /* Sombra más intensa al pasar el mouse */
+    transform: translateY(-5px); /*Eleva la tarjeta para darle un efecto de profundidad */
+}
+
+    
+
+
+
+
+
+/* Modo claro (por defecto) */
     .card {
         background-color: #ffffff; /* Fondo blanco en modo claro */
         color: #000000; /* Color del texto en modo claro */
         transition: background-color 0.3s ease, color 0.3s ease; /* Transiciones suaves */
+    }
+
+
+
+    .card.card_producto {
+    box-shadow: 0 6px 15px rgba(47, 255, 245, 0.3); /* Sombra suave y difusa */
+    border-radius: 12px; /* Bordes más redondeados para un estilo más moderno */
+    transition: box-shadow 0.3s ease, transform 0.3s ease; /* Transición suave para sombra y transformación */
+}
+
+   .card.card_producto:hover {
+    box-shadow: 0 12px 20px rgba(58, 127, 255, 0.5); /* Sombra más intensa al pasar el mouse */
+    transform: translateY(-5px); /* Eleva la tarjeta para darle un efecto de profundidad */
+    }
+
+
+
+    .product_name{
+    color: rgb(66, 109, 252);
     }
 
     /* Boton de Modo claro y oscuro*/

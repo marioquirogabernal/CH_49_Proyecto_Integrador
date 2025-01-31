@@ -16,8 +16,7 @@
 
 .card {
     transition: box-shadow 0.5s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border: none;
+    box-shadow: 0 6px 15px rgba(47, 255, 245, 0.3);    border: none;
     overflow: hidden; /*vita que los elementos se desborden */
     border-radius: 24px;
 
@@ -44,7 +43,7 @@
 }
 
 .card:hover {
-    box-shadow: 0 8px 16px #00fff2;
+  box-shadow: 0 12px 20px rgba(58, 127, 255, 0.5); 
 }
 
 .card-title {

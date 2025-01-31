@@ -5,7 +5,7 @@ const clearButton = document.getElementById("clearButton");
 
 function addItem(item){
     const elementoHTML = 
-    '<div class="card card_producto shadow" style="width: 384px;">'+
+    '<div class="card card_producto" style="width: 384px;">'+
     '         <figure class="card_img_wrapper shadow">'+
     '               <img src="'+item.img+'" class="card_img" alt="imagen del producto">'+
     '           </figure>'+
