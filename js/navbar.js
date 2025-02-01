@@ -26,7 +26,7 @@ window.addEventListener("load", function () {
                 
                 <div class="col-1">
                     <a class="navbar-brand nav-link" href="${basePath}index.html">
-                    <img src="../img/logo4.png" alt="Logo" width="57" height="57"
+                    <img src=".${basePath}img/logo4.png" alt="Logo" width="57" height="57"
                         class="d-inline-block align-text-center" />
                     
                     </a>
@@ -123,7 +123,7 @@ window.addEventListener("load", function () {
                 
                 <div class="col-1">
                     <a class="navbar-brand nav-link" href="${basePath}index.html">
-                    <img src="../img/logo4.png" alt="Logo" width="57" height="57"
+                    <img src="${basePath}img/logo4.png" alt="Logo" width="57" height="57"
                         class="d-inline-block align-text-center" />
                     
                     </a>
@@ -410,7 +410,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <div class="col-md-6 col-lg-3 footer-col">
                     <div class="footer_contact">
                         <div class="row">
-                        <img src="/img/logo5.png" alt="" id="logo-footer">
+                        <img src="${basePath}img/logo5.png" alt="" id="logo-footer">
                         </div>
                     </div>
                 </div>
