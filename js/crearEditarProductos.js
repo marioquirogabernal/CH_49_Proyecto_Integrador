@@ -4,126 +4,173 @@ const txtNombre = document.getElementById('nombreProducto');//Nombre
 const boton_subir = document.getElementById('imagenProducto');//Imagen
 const txtDescripcion = document.getElementById('descripcionProducto');//Descripcion
 const numPrecio = document.getElementById('precioProducto');//Precio
+const categoriaProducto = document.getElementById('categoriaProducto');//Categoría
 const alertValidaciones = document.getElementById("alertValidaciones");//Alerta
 const alertValidacionesTexto = document.getElementById("alertValidacionesTexto");//Alerta??
+
+boton_subir.addEventListener("click", () => {
+  widget_cloudinary.open();
+}, false);
 
 let imagen;
 let items = [];  // Array vacío al inicio
 
-
 let widget_cloudinary = cloudinary.createUploadWidget({
-    cloudName: 'dpyi3icqm',
-    uploadPreset: 'preset_pabs'
+  cloudName: 'dpyi3icqm',
+  uploadPreset: 'preset_pabs'
 }, (err, result) => {
-    if (!err && result && result.event === 'success') {
-        imagen = result.info.secure_url;
-        //console.log(imagen);
+  if (!err && result && result.event === 'success') {
+    imagen = result.info.secure_url;
+    document.getElementById('imagenLabel').textContent = 'Imagen subida con éxito.';
+    document.getElementById('imagenPreview').src = imagen; // Actualiza la fuente de la imagen
+    document.getElementById('imagenPreviewContainer').style.display = 'block'; // Muestra la vista previa
+    validarImagen();
+  }
+});
 
-        // Cambiar el texto del label para indicar que la imagen se subió con éxito
-        document.getElementById('imagenLabel').textContent = 'Imagen subida con éxito.';
-    }
-});//Validadion de la imagen
 
 boton_subir.addEventListener("click", () => {
     widget_cloudinary.open();
 }, false);
 
-
-
-function validarNombre(){
-  const name = txtNombre.value.trim();
-  const reGex = /^[A-Za-z _-]{3,40}$/;
-  return reGex.test(name);
-}//Validar nombre
+function validarNombre() {
+    const name = txtNombre.value.trim();
+    let reGex = /^.{3,}$/; // Al menos 3 caracteres de cualquier tipo
+    return reGex.test(name);
+} // Validar nombre
 
 function validarDescripcion() {
-  let description = txtDescripcion.value.trim();
-  let regex = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ _-]{3,200}$/;
-  return regex.test(description);
-}//Validar descricion
+    let descripcion = txtDescripcion.value.trim();
+    let regex = /^.{3,}$/; // Al menos 3 caracteres de cualquier tipo
+    return regex.test(descripcion);
+} // Validar descripción
 
-function validarPrecio(){
-  let precio = numPrecio.value.trim();
-  if(precio<0.1){
-    return false;
-  }
-  return true;
-}//validar precio
+function validarPrecio() {
+    let precio = numPrecio.value.trim();
+    if (precio < 0.01) {
+        return false;
+    }
+    return true;
+} // Validar precio
 
+function validarCategoria() {
+    return categoriaProducto.value !== ""; // Validar que la categoría no esté vacía
+} // Validar categoría
 
-productForm.addEventListener('submit', function(event) {
-  event.preventDefault();
-  let isValid = true;
+productForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+    let isValid = true;
 
-  const name = txtNombre.value;
-  const img = imagen;
-  const description = txtDescripcion.value;
-  const precio = precioProducto.value;
+    // Reiniciar estilos y mensajes previos
+    alertValidacionesTexto.innerHTML = "";
+    alertValidaciones.style.display = "none";
 
- //verificación y envio de alertas
+    document.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+    document.querySelectorAll('.invalid-feedback').forEach(el => el.textContent = '');
 
-  alertValidacionesTexto.innerHTML = "";
-  alertValidaciones.style.display = "none";
-  
-  txtNombre.style.border = "";
-  txtNombre.value = txtNombre.value.trim();
+    // Validación de nombre
+    if (!validarNombre()) {
+        txtNombre.classList.add("is-invalid");
+        document.getElementById("errorNombre").textContent = "El nombre no es válido";
+        isValid = false;
+    }
 
-  txtDescripcion.style.border = "";
-  txtDescripcion.value = txtDescripcion.value.trim();
- 
-  precioProducto.style.border = "";
-  precioProducto.value = precioProducto.value.trim();
+    // Validación de descripción
+    if (!validarDescripcion()) {
+        txtDescripcion.classList.add("is-invalid");
+        document.getElementById("errorDescripcion").textContent = "Inserte una descripción más larga";
+        isValid = false;
+    }
 
-  if(!validarNombre()){
-    txtNombre.style.border = "solid red medium";
-    alertValidacionesTexto.innerHTML += "<br/> <strong>El nombre no es válido</strong>";
-    alertValidaciones.style.display = "block";
-    isValid = false
-  }
-  if(!validarDescripcion()){
-    txtDescripcion.style.border = "solid red medium";
-    alertValidacionesTexto.innerHTML += "<br/> <strong>Inserte una descripción más larga</strong>";
-    alertValidaciones.style.display = "block";
-    isValid = false
-  }
-  if(!validarPrecio()){
-    precioProducto.style.border = "solid red medium";
-    alertValidacionesTexto.innerHTML += "<br/> <strong>El precio debe ser mayor a 0</strong>";
-    alertValidaciones.style.display = "block";
-    isValid = false
-  }
-  if(!img){
-    alertValidacionesTexto.innerHTML += "<br/> <strong>No has insertado una imagen</strong>";
-    alertValidaciones.style.display = "block";
-    isValid = false
-  }
+    // Validación de precio
+    if (!validarPrecio()) {
+        numPrecio.classList.add("is-invalid");
+        document.getElementById("errorPrecio").textContent = "El precio debe ser mayor a 0";
+        isValid = false;
+    }
 
-  if(isValid){
-    const newProduct = {
-      id: items.length + 1,  
-      name: name,
-      description: description,
-      img: img,
-      price: precio,  
-      category: ''  
-    };
-    // Verificar si ya existen productos en el localStorage
-    let storedItems = JSON.parse(localStorage.getItem('items')) || []; // Si no hay, usar un array vacío
-    storedItems.push(newProduct);  // Agregar el nuevo producto al array
-    // Guardar el array completo de productos en el localStorage
-    localStorage.setItem('items', JSON.stringify(storedItems));
+    // Validación de categoría
+    if (!validarCategoria()) {
+        categoriaProducto.classList.add("is-invalid");
+        document.getElementById("errorCategoria").textContent = "Debes seleccionar una categoría";
+        isValid = false;
+    }
 
-      Swal.fire({
-      title: 'Producto agregado correctamente',
-      text: 'El producto ha sido añadido',
-      icon: 'success',
-      confirmButtonText: 'Cerrar'
-      }).then(() => {
-          // Recargar la página después de cerrar el SweetAlert
-          window.location.reload();
-      })
+    // Validación de imagen
+    if (!imagen) {
+        document.getElementById("errorImagen").textContent = "No has insertado una imagen";
+        document.getElementById("imagenProducto").classList.add("is-invalid");
+        isValid = false;
+    }
 
-      //places holders a la normalidad ---- Aun no hecho
+    if (isValid) {
+        const newProduct = {
+            id: items.length + 1,
+            nombre: txtNombre.value.trim(),
+            descripcion: txtDescripcion.value.trim(),
+            imagen: imagen,
+            precio: numPrecio.value.trim(),
+            categoria: categoriaProducto.value
+        };
+        
+        // Verificar si ya existen productos en el localStorage
+        let storedItems = JSON.parse(localStorage.getItem('items')) || []; // Si no hay, usar un array vacío
+        storedItems.push(newProduct);  // Agregar el nuevo producto al array
+        // Guardar el array completo de productos en el localStorage
+        localStorage.setItem('items', JSON.stringify(storedItems));
 
-  }
+        Swal.fire({
+            title: 'Producto agregado correctamente',
+            text: 'El producto ha sido añadido',
+            icon: 'success',
+            confirmButtonText: 'Cerrar'
+        }).then(() => {
+            // Recargar la página después de cerrar el SweetAlert
+            window.location.reload();
+        });
+    }
 });
+
+// Función genérica para manejar la validación en tiempo real
+function validarCampo(input, funcionValidacion, errorId, mensajeError) {
+  if (funcionValidacion()) {
+      input.classList.remove("is-invalid");
+      document.getElementById(errorId).textContent = "";
+  } else {
+      input.classList.add("is-invalid");
+      document.getElementById(errorId).textContent = mensajeError;
+  }
+}
+
+
+// Validación en tiempo real para el nombre
+txtNombre.addEventListener("input", () => {
+  validarCampo(txtNombre, validarNombre, "errorNombre", "El nombre no es válido");
+});
+
+// Validación en tiempo real para la descripción
+txtDescripcion.addEventListener("input", () => {
+  validarCampo(txtDescripcion, validarDescripcion, "errorDescripcion", "Inserte una descripción más larga");
+});
+
+// Validación en tiempo real para el precio
+numPrecio.addEventListener("input", () => {
+  validarCampo(numPrecio, validarPrecio, "errorPrecio", "El precio debe ser mayor a 0");
+});
+
+// Validación en tiempo real para la categoría
+categoriaProducto.addEventListener("change", () => {
+  validarCampo(categoriaProducto, validarCategoria, "errorCategoria", "Debes seleccionar una categoría");
+});
+
+
+// Validación de imagen en tiempo real
+function validarImagen() {
+  if (!imagen) {
+      document.getElementById("errorImagen").textContent = "No has insertado una imagen";
+      document.getElementById("imagenProducto").classList.add("is-invalid");
+  } else {
+      document.getElementById("errorImagen").textContent = "";
+      document.getElementById("imagenProducto").classList.remove("is-invalid");
+  }
+}

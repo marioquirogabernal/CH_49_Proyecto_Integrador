@@ -11,7 +11,10 @@ let r = 0;
 window.addEventListener("load", function () {
     headTag.insertAdjacentHTML("beforeend",
         `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-        <link rel="stylesheet" href="./css/header.css" />`
+        <link rel="stylesheet" href="./css/header.css" />
+        <link rel="icon" type="image/png" href="./img/logo4.png">
+        `
+        
     );
     if (user != null && datosUsuarios != null) {
         const nombreUsuario = user ? user.nombre : "Invitado";
@@ -71,7 +74,7 @@ window.addEventListener("load", function () {
                 <img src="img/logo2.jpg" class="user-icon" alt="Icono de usuario">
         <span class="username">Bienvenidx ${nombreUsuario}</span>
     </a>
-</li>
+ </li>
 
 
                         <li class="nav-item">
