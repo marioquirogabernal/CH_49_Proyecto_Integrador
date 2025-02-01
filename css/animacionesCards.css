@@ -44,6 +44,7 @@
 
 .card:hover {
   box-shadow: 0 12px 20px rgba(58, 127, 255, 0.5); 
+  transform: translateY(-5px); /*Eleva la tarjeta para darle un efecto de profundidad */
 }
 
 .card-title {

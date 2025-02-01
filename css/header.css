@@ -1,11 +1,21 @@
 /* Header */
-.container-header{
+/* Header */
+.container-header {
     background-color: #101727; 
+    position: sticky; /* Hace que el header se quede pegado al hacer scroll */
+    top: 0; /* Fija el header en la parte superior cuando se haga scroll */
+    width: 100%; /* Asegura que el header ocupe todo el ancho de la página */
+    z-index: 1000; /*Se asegura de que el header esté por encima de otros elementos */
 }
+
  .nav-link{
     color: #00fff2; 
     text-align: center;
 } 
+
+.nav-link:hover{
+    transform: scale(1.05); 
+}
 
 .user-icon {
     width: 25px; /* Tamaño del icono */
@@ -14,6 +24,19 @@
     object-fit: cover; /* Ajusta la imagen dentro del círculo */
     vertical-align: middle; /* Alinea con el texto */
 }
+
+/* Sirve para marcar la página activa en que se encuentra */
+.navbar-nav .nav-link.active {
+    font-weight: bold;
+    color: #ffffff !important;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Efecto hover cuando el enlace activo está sobre él mismo */
+.navbar-nav .nav-link.active:hover {
+    transform: scale(1.05); /* Le da un efecto de agrandado */
+}
+
 
 /* Footer */
 
@@ -37,21 +60,73 @@ body {
     flex: 1; /* Ocupa el espacio disponible, empujando el footer hacia abajo */
 }
 
-footer {
-    background-color: #e0e0e0;
-    padding: 10px 0;
-    text-align: center;
-    font-size: 14px;
-    color: #555;
-    width: 100%;
+
+#footer11 {
+    margin-top: 50px;
+    
 }
 
-footer a {
-    text-decoration: none;
-    color: #555;
-    margin: 0 10px;
+
+.footer_section {
+    background: linear-gradient(rgb(39, 104, 226),rgb(14, 14, 122));
+    color: #ffffff;
+    padding-top: 20px;
 }
 
-footer a:hover {
-    text-decoration: underline;
+.footer_section .footer-col {
+    margin-bottom: 20px;
+}
+
+.footer_section .footer_contact .contact_link_box {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer_section .footer_contact .contact_link_box a {
+    margin: 5px 0;
+    color: #ffffff;
+}
+
+.footer_section .footer_contact .contact_link_box a i {
+    margin-right: 5px;
+}
+
+.footer_section .footer_contact .contact_link_box a:hover {
+    color: #f0d43a;
+}
+
+.footer_section .footer_social {
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.footer_section .footer_social a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #3b4a6b;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    margin-right: 5px;
+    font-size: 18px;
+    text-decoration: none; 
+}
+
+.footer_section .footer_social a:hover {
+    color: #3ac6f0;
+    background-color: #e0f7ff;
+}
+
+#logo-footer {
+    max-width: 250px;  
+    height: auto;
+}
+
+.footer_section .footer_contact .contact_link_box a {
+    margin: 5px 0;
+    color: #ffffff;
+    text-decoration: none;  /* Elimina el subrayado */
 }

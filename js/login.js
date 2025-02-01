@@ -46,7 +46,7 @@ login.addEventListener('submit', function (event) {
             icon: 'success',
             confirmButtonText: 'Aceptar'
         }).then(() => {
-            window.location.href = "./index.html";
+            window.location.href = "../index.html";
         });
     } else {
         Swal.fire({

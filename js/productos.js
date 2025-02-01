@@ -13,8 +13,15 @@ function addItem(item) {
     '        <p class="product_name">'+ item.nombre +'</p>' +
     '        <p class="product_description">'+ item.descripcion +'</p>' +
     '        <p class="product_price">'+'$'+ item.precio +'</p>' +
+    '        <div class="product_rating">' +
+    '            <span class="star">&#9733;</span>' + 
+    '            <span class="star">&#9733;</span>' +
+    '            <span class="star">&#9733;</span>' +
+    '            <span class="star">&#9733;</span>' +
+    '            <span class="star">&#9734;</span>' + // Estrella vacía
+    '        </div>' +
     '        <div class="button_content">' +
-    '            <button class="product_button" type="button">Comprar</button>' +
+    '            <button class="product_button" type="button">Agregar al carrito</button>' +
     '        </div>' +
     '    </div>' +
     '</div>';
