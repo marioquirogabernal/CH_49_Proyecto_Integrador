@@ -26,7 +26,7 @@ window.addEventListener("load", function () {
                 
                 <div class="col-1">
                     <a class="navbar-brand nav-link" href="${basePath}index.html">
-                    <img src=".${basePath}img/logo4.png" alt="Logo" width="57" height="57"
+                    <img src="${basePath}img/logo4.png" alt="Logo" width="57" height="57"
                         class="d-inline-block align-text-center" />
                     
                     </a>
