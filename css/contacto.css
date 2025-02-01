@@ -15,12 +15,21 @@ body {
 
 h2 {
     text-align: center;
-    margin-bottom: 20px;
-    margin-top: 20px;
-    font-size: 2rem;
-    /* Aumenta el tamaño de la fuente */
-    font-weight: 600;
-    /* Da más énfasis al texto */
+    margin-bottom: 20px; /* Mayor espacio abajo */
+    margin-top: 20px; /* Mayor espacio arriba */
+    font-size: 2.5rem; /* Aumenta el tamaño de la fuente */
+    font-weight: 600; /* Mayor énfasis en el texto */
+    letter-spacing: 1px; /* Espaciado entre letras para mayor claridad */
+    font-family: 'Roboto', sans-serif; /* Usar una tipografía moderna */
+}
+
+h2::after {
+    content: '';
+    display: block;
+    width: 50px; /* Línea decorativa */
+    height: 3px; /* Grosor de la línea */
+    background-color: #007bff; /* Color azul para la línea */
+    margin: 10px auto 0; /* Centra la línea debajo del texto */
 }
 
 #btnEnviarCorreo {
@@ -38,9 +47,9 @@ h2 {
     color: #000;
 }
 
-.nav-link {
+/* .nav-link {
     color: red;
-}
+} */
 
 .card {
     border-radius: 24px;
@@ -121,6 +130,7 @@ h2 {
     max-width: 300px;
     margin-top: 20px;
     margin-bottom: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 .btn-box input:hover {
@@ -128,6 +138,7 @@ h2 {
     color: #ffffff;
     -webkit-transform: translateY(-3px);
     transform: translateY(-3px);
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.5);
 }
 
 .btn-box {
@@ -169,7 +180,7 @@ h2 {
         /* Limita el tamaño máximo para pantallas más pequeñas */
         height: auto;
         /* Mantiene la relación de aspecto */
-        
+
     }
 }
 
@@ -293,11 +304,40 @@ h2 {
     padding: 10px;
     border-radius: 10px;
     background-color: #f9f9f9;
-  }
-  
-  #imagenPreview {
+}
+
+#imagenPreview {
     max-width: 100%;
     height: auto;
     border-radius: 8px;
-  }
-  
+}
+
+
+.input-group {
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.input-group:focus-within {
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.5);
+    /* Sombra más intensa */
+}
+
+
+/* Boton para subir imagen del producto */
+.input-group .btn {
+    flex: 1; /* Hace que el botón ocupe todo el espacio disponible */
+    margin-left: 5px; /* Añade un pequeño margen a la izquierda para separar del ícono */
+    background-color: #007bff; /* Color de fondo atractivo */
+    color: #fff; /* Color del texto */
+    font-size: 1rem; /* Aumenta el tamaño del texto */
+    font-weight: 600; /* Da más énfasis al texto */
+    transition: all 0.3s ease-in-out; /* Transición suave al hacer hover */
+}
+
+.input-group .btn:hover {
+    background-color: #0056b3; /* Cambia el fondo cuando el usuario pasa el ratón */
+    border-color: #0056b3; /* Cambia el borde cuando el usuario pasa el ratón */
+    cursor: pointer; /* Muestra el cursor como una mano */
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.4); /* Añade una sombra sutil al hacer hover */
+}

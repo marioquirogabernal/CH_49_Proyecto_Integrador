@@ -152,7 +152,7 @@ registro.addEventListener('submit', function (event) {
             confirmButtonText: '¡Gracias!'
         }).then(() => {
             // Después de cerrar la alerta, redirige al usuario
-            window.location.href = `./index.html`;
+            window.location.href = `../index.html`;
         });
     }
 });

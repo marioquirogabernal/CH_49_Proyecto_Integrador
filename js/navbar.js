@@ -5,16 +5,16 @@ const user = JSON.parse(sessionStorage.getItem('user'));
 const datosUsuarios = JSON.parse(localStorage.getItem('datos'));
 
 let r = 0;
+const basePath = window.location.pathname.includes("/pages/") ? "../" : "./";
 
 
-// <link rel="stylesheet" href="./css/header.css" />
 window.addEventListener("load", function () {
     headTag.insertAdjacentHTML("beforeend",
         `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-        <link rel="stylesheet" href="./css/header.css" />
-        <link rel="icon" type="image/png" href="./img/logo4.png">
+        <link rel="stylesheet" href="${basePath}css/header.css" />
+        <link rel="icon" type="image/png" href="${basePath}img/logo4.png">
         `
-        
+
     );
     if (user != null && datosUsuarios != null) {
         const nombreUsuario = user ? user.nombre : "Invitado";
@@ -25,8 +25,8 @@ window.addEventListener("load", function () {
                 <div class="container-fluid container-header">
                 
                 <div class="col-1">
-                    <a class="navbar-brand nav-link" href="index.html">
-                    <img src="./img/logo4.png" alt="Logo" width="57" height="57"
+                    <a class="navbar-brand nav-link" href="${basePath}index.html">
+                    <img src="../img/logo4.png" alt="Logo" width="57" height="57"
                         class="d-inline-block align-text-center" />
                     
                     </a>
@@ -42,24 +42,24 @@ window.addEventListener("load", function () {
 
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="index.html">Inicio</a>
+                        <a class="nav-link" aria-current="page" href="${basePath}index.html">Inicio</a>
                         </li>
 
                         <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="productos.html">Productos</a>
+                        <a class="nav-link" aria-current="page" href="${basePath}pages/productos.html">Productos</a>
                         </li>
 
                         <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="Nosotros.html">¿Quiénes somos?</a>
+                        <a class="nav-link" aria-current="page" href="${basePath}pages/Nosotros.html">¿Quiénes somos?</a>
                         </li>
 
                         <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="contacto.html">Contáctanos
+                        <a class="nav-link" aria-current="page" href="${basePath}pages/contacto.html">Contáctanos
                         </a>
                         </li>
                         
                         <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="formEdicionCreacionProductos.html">Creación de productos</a>
+                        <a class="nav-link" aria-current="page" href="${basePath}pages/formEdicionCreacionProductos.html">Creación de productos</a>
                         </li>
                     </ul>
                     </div>
@@ -71,7 +71,7 @@ window.addEventListener("load", function () {
 
                         <li class="nav-item" style="color: blue">
     <a class="nav-link" aria-current="page" href="#">
-                <img src="img/logo2.jpg" class="user-icon" alt="Icono de usuario">
+                <img src="${basePath}img/logo2.jpg" class="user-icon" alt="Icono de usuario">
         <span class="username">Bienvenidx ${nombreUsuario}</span>
     </a>
  </li>
@@ -109,7 +109,7 @@ window.addEventListener("load", function () {
         if (exit) {
             exit.addEventListener("click", function () {
                 sessionStorage.clear();
-                window.location.href = "./index.html";
+                window.location.href = `${basePath}index.html`;
             });
         } else {
         }
@@ -122,8 +122,8 @@ window.addEventListener("load", function () {
                 <div class="container-fluid container-header">
                 
                 <div class="col-1">
-                    <a class="navbar-brand nav-link" href="index.html">
-                    <img src="./img/logo4.png" alt="Logo" width="57" height="57"
+                    <a class="navbar-brand nav-link" href="${basePath}index.html">
+                    <img src="../img/logo4.png" alt="Logo" width="57" height="57"
                         class="d-inline-block align-text-center" />
                     
                     </a>
@@ -139,24 +139,24 @@ window.addEventListener("load", function () {
     
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="index.html">Inicio</a>
+                        <a class="nav-link" aria-current="page" href="${basePath}index.html">Inicio</a>
                         </li>
     
                         <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="productos.html">Productos</a>
+                        <a class="nav-link" aria-current="page" href="${basePath}pages/productos.html">Productos</a>
                         </li>
     
                         <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="Nosotros.html">¿Quiénes somos?</a>
+                        <a class="nav-link" aria-current="page" href="${basePath}pages/Nosotros.html">¿Quiénes somos?</a>
                         </li>
     
                         <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="contacto.html">Contáctanos
+                        <a class="nav-link" aria-current="page" href="${basePath}pages/contacto.html">Contáctanos
                         </a>
                         </li>
                         
                         <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="formEdicionCreacionProductos.html">Creación de productos</a>
+                        <a class="nav-link" aria-current="page" href="${basePath}pages/formEdicionCreacionProductos.html">Creación de productos</a>
                         </li>
                     </ul>
                     </div>
@@ -164,11 +164,11 @@ window.addEventListener("load", function () {
                     <ul class="navbar-nav d-flex">
     
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="./login.html">Iniciar sesión</a>
+                            <a class="nav-link" aria-current="page" href="${basePath}pages/login.html">Iniciar sesión</a>
                         </li>
     
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="./Formulario_registro.html">Registrarse</a>
+                            <a class="nav-link" aria-current="page" href="${basePath}pages/Formulario_registro.html">Registrarse</a>
                         </li>
     
                         <li class="nav-item">
@@ -256,12 +256,12 @@ style.innerHTML = `
     }
 
     .dark-mode .invalid-feedback{
-    color:rgb(235, 97, 81); /* Rojo suave */
+    color:rgb(245, 138, 126); /* Rojo suave */
     }
 
 
     .dark-mode .required {
-        color: rgb(235, 97, 81);
+        color: rgb(235, 106, 92);
     }
 
 
@@ -269,6 +269,14 @@ style.innerHTML = `
    color:rgb(63, 151, 252);
     }
 
+    /* Estilos para el modo nocturno de los inputs de los formularios*/
+    .dark-mode .input-group {
+    box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.2); 
+    }
+
+    .dark-mode .input-group:focus-within {
+    box-shadow: 0px 6px 14px rgba(255, 255, 255, 0.4);
+    }
     
  .dark-mode .card.card_producto {
     box-shadow: 0 6px 15px rgba(47, 255, 245, 0.3); /* Sombra suave y difusa */
@@ -308,8 +316,6 @@ style.innerHTML = `
     transform: translateY(-5px); /* Eleva la tarjeta para darle un efecto de profundidad */
     }
 
-
-
     .product_name{
     color: rgb(66, 109, 252);
     }
@@ -337,14 +343,126 @@ style.innerHTML = `
 `;
 headTag.appendChild(style);
 
+
+//Sirve para remarcar la pagína actual
+window.addEventListener("load", function () {
+    const currentPage = window.location.pathname.split("/").pop(); // Obtiene el nombre del archivo actual
+    const navLinks = document.querySelectorAll(".navbar-nav .nav-link");
+
+    navLinks.forEach(link => {
+        const linkPage = link.getAttribute("href").split("/").pop();
+        if (linkPage === currentPage) {
+            link.classList.add("active");
+        }
+    });
+});
+
+
+
+
+
+
+
+
 //Inserción del footer
 document.addEventListener("DOMContentLoaded", function () {
     bodyTag.insertAdjacentHTML("beforeend",
         ` 
-        <footer id="footer">
-            <a href="./Nosotros.html">¿Quiénes somos?  |  </a>
-            <a href="#">Aviso de privacidad  |  </a>
-            <a href="#">Preguntas frecuentes</a>
-        </footer>
+       <!-- footer section -->
+    <footer class="footer_section" id="footer11">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-lg-3 footer-col">
+                    <div class="footer_detail">
+                        <h4>
+                            Acerca de
+                        </h4>
+                        <span>
+                        
+                Somos Technology-Shop, una tienda en línea en México de computadoras 
+                de alto rendimiento, ideales para profesionales.
+                       </span>
+
+                        <h4>
+                        Siguenos en...
+                        </h4>
+                        <div class="footer_social">
+                          <a href="https://www.facebook.com" target="_blank">
+                        <i class="bi bi-facebook" aria-hidden="true"></i>
+                        </a>
+
+                        <a href="https://www.instagram.com" target="_blank">
+                       <i class="bi bi-instagram" aria-hidden="true"></i>
+                      </a>
+
+                    <a href="https://www.tiktok.com" target="_blank">
+                      <i class="bi bi-tiktok" aria-hidden="true"></i>
+                        </a>
+
+                    <a href="https://www.linkedin.com" target="_blank">
+                   <i class="bi bi-linkedin" aria-hidden="true"></i>
+                    </a>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3 footer-col">
+                    <div class="footer_contact">
+                        <div class="row">
+                        <img src="/img/logo5.png" alt="" id="logo-footer">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 footer-col">
+                    <div class="footer_contact">
+
+                        <h4>
+                            Sobre nosotros
+                        </h4>
+                        <div class="contact_link_box">
+                            <a>
+                                <span>
+                                    Preguntas frecuentes
+                                </span>
+                            </a>
+                            <a href="${basePath}pages/contacto.html">
+                                <span>
+                                    Contáctanos
+                                </span>
+                            </a>
+                        </div>
+                        <h4>
+                            Visítanos en...
+                        </h4>
+                        <div class="contact_link_box">
+                            <a >
+                                <i class="bi bi-geo-alt" aria-hidden="true"></i>
+                                <span>Calle de las Flores 112, Colonia Roma, 06700 Ciudad de México, CDMX.
+                                </span>
+                            </a>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+
+
+                <div class="col-md-6 col-lg-3 footer-col">
+                <!-- Google Maps Embed -->
+                    <div class="contact_link_box">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d30113.14907524992!2d-99.19139288602726!3d19.36293238474038!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sCalle%20de%20las%20Flores%20112%2C%20Colonia%20Roma%2C%2006700%20Ciudad%20de%20M%C3%A9xico%2C%20CDMX.!5e0!3m2!1ses-419!2smx!4v1738401254660!5m2!1ses-419!2smx"
+                            width="100%" height="200" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                    </div>
+                </div>
+
+                
+            </div>
+            <div class="footer-info">
+             
+            </div>
+        </div>
+    </footer>
+    <!-- footer section -->
     `);
 });
