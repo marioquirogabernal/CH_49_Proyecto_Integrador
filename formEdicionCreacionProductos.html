@@ -1,56 +1,129 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Gestor de Productos</title>
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <!-- Sweet alert -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="./css/contacto.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creación de productos</title>
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="./css/contacto.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-  <body>
-    <div class="container my-5">
-      <div class="card mb-4 shadow">
-        <div class="card-body">
-          <h2 class="mb-4 text-center">Creación de productos</h2>  
 
-          <div class="alert alert-danger fade show" style="display:none;" role="alert" id="alertValidaciones">
-            <p id="alertValidacionesTexto"></p>
+<body>
+  <div class="container my-5">
+    <div class="card mb-4 shadow">
+      <div class="card-body">
+
+        <!-- alertas  -->
+        <div class="alert alert-danger fade show" style="display:none;" role="alert" id="alertValidaciones">
+          <p id="alertValidacionesTexto"></p>
         </div>
-          <form id="productForm">
-            <div class="mb-3">
-              <label for="nombreProducto" class="form-label">Nombre del Producto</label>
-              <input type="text" class="form-control" id="nombreProducto" placeholder="Ingresa el nombre del producto">
-            </div>
-            <div class="mb-3">
-              <label for="imagenProducto" id="imagenLabel">Elige la imagen del producto:</label>
-              <button type="button" id="imagenProducto" class="btn btn-primary">Subir Imagen</button>
-              <input type="hidden" id="imagenUrl" name="imagenUrl">
-            </div>
-            <div class="mb-3">
-              <label for="descripcionProducto" class="form-label">Descripción</label>
-              <textarea class="form-control" id="descripcionProducto" rows="3" placeholder="Ingresa la descripción del producto"></textarea>
-            </div>
-            <div class="mb-3">
-              <label for="precioProducto" class="form-label">Precio</label>
-              <input type="number" class="form-control" id="precioProducto" placeholder="Ingresa el precio del producto" step="0.01">
+
+        <div class="contenido">
+
+          <div class="form form-entrada">
+            <form action="" id="productForm">
+              <h2 class="mb-4 text-center">Creación de productos</h2>
+
+
+              <div class="mb-4">
+                <label for="nombreProducto" class="form-label">Nombre <span class="required">*</span></label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="fas fa-user"></i></span>
+                  <input type="text" class="form-control" id="nombreProducto" name="nombre"
+                    placeholder="Ingresa el nombre del producto" autocomplete="name">
+                </div>
+                <div class="invalid-feedback" id="errorNombre"></div>
+              </div>
+
+
+
+              <div class="mb-4">
+                <label for="descripcionProducto" class="form-label">Descripción <span class="required">*</span></label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="fas fa-align-left"></i></span>
+                  <textarea class="form-control" id="descripcionProducto" name="descripcion" rows="4"
+                    placeholder="Ingresa la descripción del producto" autocomplete="off"></textarea>
+                </div>
+                <div class="invalid-feedback" id="errorDescripcion"></div>
+              </div>
+
+
+
+              <div class="mb-4">
+                <label for="precioProducto" class="form-label">Precio<span class="required">*</span></label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                  <input type="number" class="form-control" id="precioProducto" name="precio"
+                    placeholder="Escribe el precio" min="0" step="0.01">
+                </div>
+                <div class="invalid-feedback" id="errorPrecio"></div>
+              </div>
+
+
+
+              <div class="mb-4">
+                <label for="categoriaProducto" class="form-label">Categoría<span class="required">*</span></label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="fas fa-tags"></i></span>
+                  <select class="form-control" id="categoriaProducto" name="categoria">
+                    <option value="" disabled selected>Selecciona una categoría</option>
+                    <option value="componentes">Componentes de computadora</option>
+                    <option value="perifericos">Periféricos</option>
+                    <option value="ensambladas">PCs ensambladas</option>
+                    <option value="otros">Otros</option>
+                  </select>
+                </div>
+                <div class="invalid-feedback" id="errorCategoria"></div>
+              </div>
+
+
+
+              <div class="mb-4">
+                <label for="imagenProducto" class="form-label">Imagen del producto <span class="required">*</span></label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="fas fa-image"></i></span>
+                  <button type="button" id="imagenProducto" class="btn btn-primary">Subir Imagen</button>
+                </div>
+                <input type="hidden" id="imagenUrl" name="imagenUrl">
+                <div class="invalid-feedback" id="errorImagen"></div>
+                <label id="imagenLabel"></label>
+                <!-- Vista previa de la imagen -->
+                <div id="imagenPreviewContainer" class="mt-3" style="display: none;">
+                  <img id="imagenPreview" src="" alt="Vista previa de la imagen" class="img-fluid rounded" />
+                </div>
+              </div>
               
+              
+
+
+              <div class="btn-box">
+                <input class="boton" type="submit" value="Agregar producto" id="btnEnviarCorreo">
+              </div>
+
+            </form>
           </div>
-            <button type="submit" class="btn btn-primary">Agregar Producto</button>
-          </form>
+          <img class="img2" src="./img/logoCreaProd.jpeg" alt="">
         </div>
       </div>
+
     </div>
 
-    <!-- Nabvar and footer -->
-    <script src="./js/navbar.js"></script>
-    
+
+
     <script src="https://upload-widget.cloudinary.com/latest/global/all.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+    <script src="./js/navbar.js"></script>
     <script src="./js/crearEditarProductos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  </body>
+
+
+</body>
+
 </html>
