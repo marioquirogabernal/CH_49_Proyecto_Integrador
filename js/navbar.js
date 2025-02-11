@@ -421,7 +421,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             Sobre nosotros
                         </h4>
                         <div class="contact_link_box">
-                            <a>
+                            <a href="${basePath}pages/Preguntas.html">
                                 <span>
                                     Preguntas frecuentes
                                 </span>
