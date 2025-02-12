@@ -171,3 +171,48 @@ body {
     text-shadow: 0 0 3px rgba(0, 0, 0, 0.8), 0 0 5px rgba(0, 0, 0, 0.6); 
 }
 
+
+/* boton de filtrar productos */
+.custom-filter-btn {
+    background: linear-gradient(#00fff2, #4900FF);
+    color: white; /* Color del texto siempre blanco */
+    border: none;
+    border-radius: 10px; /* Bordes más redondeados */
+    font-size: 14px; /* Tamaño de fuente ligeramente más grande */
+    font-weight: 600; /* Texto en negrita */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    outline: none; /* Eliminar el borde de enfoque por defecto */
+}
+
+.custom-filter-btn:hover {
+    transform: scale(1.05);
+    color: white; 
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada al pasar el mouse */
+}
+
+.custom-filter-btn:active {
+    transform: scale(0.98); /* Efecto de "presionado" */
+    color: white; 
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2); /* Sombra más pequeña al hacer clic */
+}
+
+.custom-filter-btn:focus {
+    color: white; 
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.3); /* Borde de enfoque sutil */
+}
+
+
+.new-tag {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #f44336; /* Rojo brillante */
+    color: white;
+    padding: 5px 10px;
+    font-weight: bold;
+    border-radius: 5px;
+    font-size: 12px;
+    z-index: 10;
+}

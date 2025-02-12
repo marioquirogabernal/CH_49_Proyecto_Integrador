@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realizar pago</title>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/contacto.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+    <div class="container my-5">
+        <div class="card mb-4 shadow">
+            <div class="card-body">
+
+                <!-- alertas  -->
+                <div class="alert alert-danger fade show" style="display:none;" role="alert" id="alertValidaciones">
+                    <p id="alertValidacionesTexto"></p>
+                </div>
+
+                <div class="contenido">
+                        <form id="pagoForm">
+                            <h2 class="mb-4 text-center">Realizar pago</h2>
+                            
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <label for="txtName" class="form-label">Titular de la tarjeta <span class="required">*</span></label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                        <input type="text" class="form-control" id="txtName" name="nombre" placeholder="Titular de la tarjeta" autocomplete="name">
+                                    </div>
+                                    <div class="invalid-feedback" id="errorNombre"></div>
+                                </div>
+    
+                                <div class="col-md-6">
+                                    <label for="cardnumber" class="form-label">Número de tarjeta <span class="required">*</span></label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-credit-card"></i></span>
+                                        <input type="text" class="form-control" id="cardnumber" name="tarjeta" placeholder="Número de tarjeta">
+                                    </div>
+                                    <div class="invalid-feedback" id="errorTarjeta"></div>
+                                </div>
+                            </div>
+    
+
+
+                            <div class="row mb-3">
+                                <!-- Mes -->
+                                <div class="col-md-4">
+                                    <label for="expMonth" class="form-label">Mes de expiración<span
+                                            class="required">*</span></label>
+                                    <div class="input-group">
+                                        <select class="form-control" id="expMonth">
+                                            <option value="" disabled selected>MM</option>
+                                            <option value="01">Enero (01)</option>
+                                            <option value="02">Febrero (02)</option>
+                                            <option value="03">Marzo (03)</option>
+                                            <option value="04">Abril (04)</option>
+                                            <option value="05">Mayo (05)</option>
+                                            <option value="06">Junio (06)</option>
+                                            <option value="07">Julio (07)</option>
+                                            <option value="08">Agosto (08)</option>
+                                            <option value="09">Septiembre (09)</option>
+                                            <option value="10">Octubre (10)</option>
+                                            <option value="11">Noviembre (11)</option>
+                                            <option value="12">Diciembre (12)</option>
+                                        </select>
+                                    </div>
+                                    <div class="invalid-feedback" id="errorMes"></div>
+                                </div>
+
+
+                                <div class="col-md-4">
+                                    <label for="expYear" class="form-label">Año de expiración<span
+                                            class="required">*</span></label>
+                                    <div class="input-group">
+                                        <select class="form-control" id="expYear" >
+                                            <option value="" disabled selected>YY</option>
+
+                                        </select>
+                                    </div>
+                                    <div class="invalid-feedback" id="errorYear"></div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label for="cvv" class="form-label">CVV<span class="required">*</span></label>
+                                    <div class="input-group">
+                                    <input type="text" class="form-control" id="cvv" 
+                                        >
+                                    </div>
+                                    <div class="invalid-feedback" id="errorCVV"></div>
+                                </div>
+
+
+
+                            <div class="btn-box">
+                                <input class="boton btn btn-primary w-100" type="submit" value="Realizar compra"
+                                    id="btnEnviarCorreo">
+                            </div>
+                        </form>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+    <script src="../js/navbar.js"></script>
+    <script src="../js/pago.js"></script>
+
+</body>
+
+</html>

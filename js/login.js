@@ -1,5 +1,4 @@
-// Obtener los datos guardados en localStorage
-const datosUsuariosLogin = JSON.parse(localStorage.getItem('datos')) || [];
+const URL_BASE = "http://localhost:8080/api/login/";
 
 // Selección de elementos del formulario
 const txtEmail = document.getElementById('txtEmail');
@@ -34,31 +33,60 @@ login.addEventListener('submit', function (event) {
     const emailIngresado = txtEmail.value.trim();
     const contraseñaIngresada = txtContraseña.value.trim();
 
-    // Verificar si los datos existen en el almacenamiento
-    const usuarioEncontrado = datosUsuariosLogin.find(user => user.email === emailIngresado && user.password === contraseñaIngresada);
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
 
-    if (usuarioEncontrado) {
-        sessionStorage.setItem('user', JSON.stringify(usuarioEncontrado));
+    const raw = JSON.stringify({
+        "email": emailIngresado,
+        "password": contraseñaIngresada
+    });
 
-        Swal.fire({
-            title: `¡Bienvenido nuevamente, ${usuarioEncontrado.nombre}!`,
-            text: 'Inicio de sesión exitoso',
-            icon: 'success',
-            confirmButtonText: 'Aceptar'
-        }).then(() => {
-            window.location.href = "../index.html";
+    const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow"
+    };
+
+
+    fetch(URL_BASE, requestOptions)
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.accessToken) {
+                localStorage.setItem('Authorization', `Bearer: ${data.accessToken}`);
+
+                const usuario = {
+                    id: data.usuario.id,
+                    nombre: data.usuario.nombre,
+                    telefono: data.usuario.telefono,
+                    email: data.usuario.email,
+                    tipo: data.usuario.tipo,
+                };
+                localStorage.setItem('user', JSON.stringify(usuario));
+
+                Swal.fire({
+                    title: `¡Bienvenido nuevamente, ${data.usuario.nombre}!`,
+                    text: 'Inicio de sesión exitoso',
+                    icon: 'success',
+                    confirmButtonText: 'Aceptar'
+                }).then(() => {
+                    window.location.href = "../index.html";
+                });
+            } else {
+                throw new Error('Correo o contraseña incorrectos');
+            }
+        })
+        .catch((error) => {
+            Swal.fire({
+                title: 'Error',
+                text: error.message,
+                icon: 'error',
+                confirmButtonText: 'Intentar de nuevo'
+            }).then(() => {
+                txtEmail.value = '';
+                txtContraseña.value = '';
+                txtEmail.focus();
+            });
         });
-    } else {
-        Swal.fire({
-            title: 'Error',
-            text: 'Correo o contraseña incorrectos',
-            icon: 'error',
-            confirmButtonText: 'Intentar de nuevo'
-        }).then(() => {
-            // Limpiar los campos después del error
-            txtEmail.value = '';
-            txtContraseña.value = '';
-            txtEmail.focus(); // Poner el cursor en el campo de email
-        });
-    }
+
 });

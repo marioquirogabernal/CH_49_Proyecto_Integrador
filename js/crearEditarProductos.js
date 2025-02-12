@@ -114,10 +114,17 @@ productForm.addEventListener('submit', function (event) {
         };
         
         // Verificar si ya existen productos en el localStorage
-        let storedItems = JSON.parse(localStorage.getItem('items')) || []; // Si no hay, usar un array vacío
-        storedItems.push(newProduct);  // Agregar el nuevo producto al array
+        //let storedItems = JSON.parse(localStorage.getItem('items')) || []; // Si no hay, usar un array vacío
+        //storedItems.push(newProduct);  // Agregar el nuevo producto al array
+        
         // Guardar el array completo de productos en el localStorage
-        localStorage.setItem('items', JSON.stringify(storedItems));
+        //localStorage.setItem('items', JSON.stringify(storedItems));
+
+
+
+
+        
+
 
         Swal.fire({
             title: 'Producto agregado correctamente',

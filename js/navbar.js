@@ -1,14 +1,32 @@
 const bodyTag = document.getElementsByTagName("body").item(0);
 const headTag = document.getElementsByTagName("head").item(0);
 
-const user = JSON.parse(sessionStorage.getItem('user'));
+const user = JSON.parse(localStorage.getItem('user'));
 const datosUsuarios = JSON.parse(localStorage.getItem('datos'));
 
 let r = 0;
 const basePath = window.location.pathname.includes("/pages/") ? "../" : "./";
 
+function actualizarContadorCarrito() {
+    let carrito = JSON.parse(localStorage.getItem("carrito")) || []; // Cargar el carrito desde el almacenamiento local
+    let totalCantidad = carrito.reduce((total, item) => total + item.cantidad, 0); // Sumar las cantidades de los productos
+
+    const contadorCarrito = document.getElementById("contadorCarrito");
+
+    if (contadorCarrito) {
+        contadorCarrito.style.color = "white"; 
+
+        if (totalCantidad > 0) {
+            contadorCarrito.textContent = totalCantidad; // Actualizar el contador con la cantidad total
+        } else {
+            contadorCarrito.textContent = 0; // Mostrar 0 si no hay productos
+        }
+    }
+}
+
 
 window.addEventListener("load", function () {
+    
     headTag.insertAdjacentHTML("beforeend",
         `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <link rel="stylesheet" href="${basePath}css/header.css" />
@@ -16,7 +34,7 @@ window.addEventListener("load", function () {
         `
 
     );
-    if (user != null && datosUsuarios != null) {
+    if (user != null) {
         const nombreUsuario = user ? user.nombre : "Invitado";
 
         bodyTag.insertAdjacentHTML("afterbegin", //cambia esto ---------------------------------------------------------------
@@ -65,9 +83,15 @@ window.addEventListener("load", function () {
                     </div>
 
                     <ul class="navbar-nav d-flex">
-                         <li class="nav-item">
-                        <a class="nav-link"aria-current="page" href="#"><i class="bi bi-cart"></i></a>
-                        </li>
+                         
+                       <li class="nav-item position-relative">
+    <a class="nav-link" aria-current="page" href="${basePath}pages/carrito.html">
+        <i class="bi bi-cart">
+            <span id="contadorCarrito" class="badge rounded-pill bg-danger" style="color: white;">0</span>
+        </i>
+    </a>
+</li>
+
 
                         <li class="nav-item" style="color: blue">
     <a class="nav-link" aria-current="page" href="#">
@@ -108,7 +132,9 @@ window.addEventListener("load", function () {
         const exit = document.getElementById("idExit");
         if (exit) {
             exit.addEventListener("click", function () {
-                sessionStorage.clear();
+                //localStorage.clear();user
+                localStorage.removeItem("user");
+                localStorage.removeItem("Authorization");
                 window.location.href = `${basePath}index.html`;
             });
         } else {
@@ -171,9 +197,14 @@ window.addEventListener("load", function () {
                             <a class="nav-link" aria-current="page" href="${basePath}pages/Formulario_registro.html">Registrarse</a>
                         </li>
     
-                        <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#"><i class="bi bi-cart"></i></a>
-                        </li>
+                       <li class="nav-item position-relative">
+    <a class="nav-link" aria-current="page" href="${basePath}pages/carrito.html">
+        <i class="bi bi-cart">
+            <span id="contadorCarrito" class="badge rounded-pill bg-danger" style="color: white;">0</span>
+        </i>
+    </a>
+</li>
+
     
                     </ul>
     
@@ -195,6 +226,7 @@ window.addEventListener("load", function () {
         )
     };
 
+    actualizarContadorCarrito();
 
 
     // Comprobar el estado guardado en el Local Storage al cargar la página
@@ -237,7 +269,7 @@ style.innerHTML = `
     .dark-mode {
         background-color:#101727;
         color: #ffffff;
-        transition: background-color 0.3s ease, color 0.3s ease; /* Transiciones suaves */
+       /* transition: background-color 0.3s ease, color 0.3s ease;  Transiciones suaves */
     }
 
     .dark-mode .card{
@@ -384,7 +416,7 @@ document.addEventListener("DOMContentLoaded", function () {
                        </span>
 
                         <h4>
-                        Siguenos en...
+                        Síguenos en...
                         </h4>
                         <div class="footer_social">
                           <a href="https://www.facebook.com" target="_blank">
@@ -466,3 +498,5 @@ document.addEventListener("DOMContentLoaded", function () {
     <!-- footer section -->
     `);
 });
+
+
