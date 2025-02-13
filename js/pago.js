@@ -1,3 +1,5 @@
+const URL_BASE="http://localhost:8080/api/compras/";
+
 // Llenar el dropdown de años desde el actual hasta 50 años posteriores
 const yearSelect = document.getElementById('expYear');
 const currentYear = new Date().getFullYear();
@@ -7,6 +9,8 @@ const expYear = document.getElementById('expYear');//AÑO
 const cvv = document.getElementById('cvv');//cvv
 const pagoForm = document.getElementById('pagoForm');//pagoForm
 const cardnumber = document.getElementById('cardnumber');//cvv
+const txtDireccion = document.getElementById('txtDireccion');//txtDireccion
+
 
 
 for (let i = 0; i <= 25; i++) {
@@ -27,7 +31,7 @@ function validarNombre() {
 
 function validarCard() {
     //Elimina espacios en blanco del número de la tarjeta.
-    const cardNumber = cardnumber.value.replace(/\s+/g, ""); 
+    const cardNumber = cardnumber.value.replace(/\s+/g, "");
 
     // La expresión regular /^\d+$/ verifica si el número de tarjeta contiene solo dígitos (0-9).
     if (!/^\d+$/.test(cardNumber)) return false;
@@ -91,6 +95,13 @@ function validarCVV() {
 
 
 
+function validarDireccion() {
+    const direccion = document.getElementById("txtDireccion").value.trim();
+    const reGex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s.,#'-]{5,}$/;
+    return reGex.test(direccion);
+}
+
+
 // Función genérica para manejar la validación en tiempo real
 function validarCampo(input, funcionValidacion, errorId, mensajeError) {
     if (funcionValidacion()) {
@@ -104,7 +115,7 @@ function validarCampo(input, funcionValidacion, errorId, mensajeError) {
 
 
 
-  pagoForm.addEventListener('submit', function (event) {
+pagoForm.addEventListener('submit', function (event) {
     event.preventDefault();
     let isValid = true;
 
@@ -117,45 +128,109 @@ function validarCampo(input, funcionValidacion, errorId, mensajeError) {
         document.getElementById("errorNombre").textContent = "El nombre no es válido";
         isValid = false;
     }
-  
 
 
-   // Validación de mes
-   if (!validarMes()) {
-    expMonth.classList.add("is-invalid");
-    document.getElementById("errorMes").textContent = "Selecciona un mes";
-    isValid = false;
-}
+
+    // Validación de mes
+    if (!validarMes()) {
+        expMonth.classList.add("is-invalid");
+        document.getElementById("errorMes").textContent = "Selecciona un mes";
+        isValid = false;
+    }
 
 
- // Validación de año
- if (!validarYear()) {
-    expYear.classList.add("is-invalid");
-    document.getElementById("errorYear").textContent = "Selecciona un año";
-    isValid = false;
-}
+    // Validación de año
+    if (!validarYear()) {
+        expYear.classList.add("is-invalid");
+        document.getElementById("errorYear").textContent = "Selecciona un año";
+        isValid = false;
+    }
 
 
- // Validación de cvv
- if (!validarCVV()) {
-    cvv.classList.add("is-invalid");
-    document.getElementById("errorCVV").textContent = "CVV no válido";
-    isValid = false;
-}
+    // Validación de cvv
+    if (!validarCVV()) {
+        cvv.classList.add("is-invalid");
+        document.getElementById("errorCVV").textContent = "CVV no válido";
+        isValid = false;
+    }
 
 
- // Validación de tarjeta
- if (!validarCard()) {
-    cardnumber.classList.add("is-invalid");
-    document.getElementById("errorTarjeta").textContent = "Tarjeta no válida";
-    isValid = false;
-}
+    // Validación de tarjeta
+    if (!validarCard()) {
+        cardnumber.classList.add("is-invalid");
+        document.getElementById("errorTarjeta").textContent = "Tarjeta no válida";
+        isValid = false;
+    }
 
+    // Validación de dirección
+    if (!validarDireccion()) {
+        txtDireccion.classList.add("is-invalid");
+        document.getElementById("errorDireccion").textContent = "Dirección no válida";
+        isValid = false;
+    }
 
+    if (isValid) {
+        // Obtener usuario y carrito del localStorage
+        const user = JSON.parse(localStorage.getItem("user"));
+        const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+        // Calcular total de la compra
+        const total = carrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
+
+        // Obtener la fecha actual en formato ISO
+        const fecha = new Date().toISOString();
+     
+        // Construir detalles de la compra
+        const detalles = carrito.map(item => ({
+            producto_id: item.id,
+            cantidad: item.cantidad,
+            precio_unitario: item.precio
+        }));
+
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        const raw = JSON.stringify({
+            usuarioid: user.id,
+            total,
+            fecha,
+            detalles
+        });
+
+        const requestOptions = {
+            method: "POST",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow"
+        };
+
+        fetch(URL_BASE, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                Swal.fire({
+                    title: "Compra realizada",
+                    text: "Tu compra se ha realizado con éxito",
+                    icon: "success",
+                    confirmButtonText: "Aceptar"
+                }).then(() => {
+                    localStorage.removeItem("carrito"); // Eliminar carrito del localStorage
+                    window.location.href = "../../index.html";
+                });
+                // console.log(result);
+            })
+            .catch(error => {
+                console.error(error);
+                Swal.fire({
+                    title: "Error",
+                    text: "Hubo un problema al procesar la compra",
+                    icon: "error",
+                    confirmButtonText: "Intentar de nuevo"
+                });
+            });
+    }
 
 
 });
-
 
 
 
@@ -164,17 +239,50 @@ txtName.addEventListener("input", () => validarCampo(txtName, validarNombre, "er
 
 cardnumber.addEventListener("input", () => validarCampo(cardnumber, validarCard, "errorTarjeta", "Tarjeta no válida"));
 
-
 // Validación en tiempo real para el mes
 expMonth.addEventListener("change", () => {
     validarCampo(expMonth, validarMes, "errorMes", "Selecciona un mes");
-  });
+});
 
 // Validación en tiempo real para el año
 expYear.addEventListener("change", () => {
     validarCampo(expYear, validarYear, "errorYear", "Selecciona un año");
-  });
-  
+});
+
 
 cvv.addEventListener("input", () => validarCampo(cvv, validarCVV, "errorCVV", "CVV no válido"));
 
+txtDireccion.addEventListener("input", () => validarCampo(txtDireccion, validarDireccion, "errorDireccion", "Dirección no válida"));
+
+
+
+//Validación de que la sesión esté iniciada
+window.addEventListener("load", function () {
+    totalPago();
+
+    const user = localStorage.getItem("user");
+    if (!user) {
+        Swal.fire({
+            icon: "warning",
+            title: "¡Atención!",
+            text: "Para poder realizar una compra, debes iniciar sesión.",
+            confirmButtonText: "Iniciar sesión",
+            allowOutsideClick: false
+        }).then(() => {
+            window.location.href = "login.html";
+        });
+    }
+});
+
+
+
+function totalPago() {
+    let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+    const totalElement = document.getElementById("total");
+    let total = 0;
+    carrito.forEach((producto, index) => {
+        let subtotal = producto.precio * producto.cantidad;
+        total += subtotal;
+    });
+    totalElement.textContent = `$${total.toFixed(2)}`;
+}

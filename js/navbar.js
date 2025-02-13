@@ -36,6 +36,14 @@ window.addEventListener("load", function () {
     );
     if (user != null) {
         const nombreUsuario = user ? user.nombre : "Invitado";
+        let creacionProductosHTML = "";
+        if (user.tipo === "administrador") { 
+            creacionProductosHTML = `
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="${basePath}pages/formEdicionCreacionProductos.html">Creación de productos</a>
+                </li>`;
+        }
+
 
         bodyTag.insertAdjacentHTML("afterbegin", //cambia esto ---------------------------------------------------------------
             `<div class="container-header">
@@ -76,9 +84,8 @@ window.addEventListener("load", function () {
                         </a>
                         </li>
                         
-                        <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="${basePath}pages/formEdicionCreacionProductos.html">Creación de productos</a>
-                        </li>
+                        ${creacionProductosHTML} <!-- Se inserta solo si es administrador -->
+     
                     </ul>
                     </div>
 
@@ -180,10 +187,11 @@ window.addEventListener("load", function () {
                         <a class="nav-link" aria-current="page" href="${basePath}pages/contacto.html">Contáctanos
                         </a>
                         </li>
-                        
+                        <!-- 
                         <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="${basePath}pages/formEdicionCreacionProductos.html">Creación de productos</a>
-                        </li>
+                         <a class="nav-link" aria-current="page" href="${basePath}pages/formEdicionCreacionProductos.html">Creación de productos</a>
+                       </li>
+                            -->
                     </ul>
                     </div>
     

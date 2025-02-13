@@ -91,12 +91,25 @@
                                 <div class="col-md-4">
                                     <label for="cvv" class="form-label">CVV<span class="required">*</span></label>
                                     <div class="input-group">
-                                    <input type="text" class="form-control" id="cvv" 
-                                        >
+                                        <input type="password" class="form-control" id="cvv">
                                     </div>
                                     <div class="invalid-feedback" id="errorCVV"></div>
                                 </div>
+                                
 
+                                <div class="col-md-12">
+                                    <label for="txtDireccion" class="form-label">Dirección de envío <span class="required">*</span></label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                                        <input type="text" class="form-control" id="txtDireccion" name="direccion" placeholder="Dirección de envío" autocomplete="street-address">
+                                    </div>
+                                    <div class="invalid-feedback" id="errorDireccion"></div>
+                                </div>
+
+                                <div id="total-container">
+                                    <h4 class="text-end mt-3">Total a pagar: <span id="total">$0.00</span></h4>
+                                </div>
+    
 
 
                             <div class="btn-box">
