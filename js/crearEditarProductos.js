@@ -1,4 +1,7 @@
-const URL_BASE = "http://localhost:8080/api/productos/";
+//const URL_BASE = "http://localhost:8080/api/productos/";
+const URL_BASE = "http://3.145.32.161:80/api/productos/";
+
+
 
 const productForm = document.getElementById('productForm');
 

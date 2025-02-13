@@ -1,4 +1,5 @@
-const URL_BASE="http://localhost:8080/api/compras/";
+//const URL_BASE="http://localhost:8080/api/compras/";
+const URL_BASE="http://3.145.32.161:80/api/compras/";
 
 // Llenar el dropdown de años desde el actual hasta 50 años posteriores
 const yearSelect = document.getElementById('expYear');

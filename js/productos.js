@@ -1,4 +1,7 @@
-URL_BASE= "http://localhost:8080/api/productos/";
+//URL_BASE= "http://localhost:8080/api/productos/";
+URL_BASE= "http://3.145.32.161:80/api/productos/";
+
+
 const contenedorProductos = document.getElementById("product_container");
 const buttonaddon2 = document.getElementById("buttonaddon2");
 const searchInput = document.getElementById("searchInput"); // Input con el id del HTML

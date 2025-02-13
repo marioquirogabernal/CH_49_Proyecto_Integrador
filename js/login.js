@@ -1,4 +1,5 @@
-const URL_BASE = "http://localhost:8080/api/login/";
+//const URL_BASE = "http://localhost:8080/api/login/";
+const URL_BASE = "http://3.145.32.161:80/api/login/";
 
 // Selección de elementos del formulario
 const txtEmail = document.getElementById('txtEmail');

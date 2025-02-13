@@ -1,4 +1,6 @@
-const URL_BASE = "http://localhost:8080/api/usuarios/";
+//const URL_BASE = "http://localhost:8080/api/usuarios/";
+const URL_BASE = "http://3.145.32.161:80/api/usuarios/";
+
 
 const txtName = document.getElementById('txtName');
 const txtTel = document.getElementById('txtTel');
