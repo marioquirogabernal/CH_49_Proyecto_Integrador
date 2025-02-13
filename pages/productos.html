@@ -1,36 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Productos</title>
     <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Cards productos-->
-    <link rel="stylesheet"  href="../css/card_productos.css">
-   
+    <link rel="stylesheet" href="../css/card_productos.css">
+
 </head>
+
 <body>
     <!-- Aqui va el navbar -->
     <!-- Aqui esta empieza el buscador-->
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <!-- Formulario de búsqueda -->
                 <form action="#" method="get">
-                    <div class="input-group">
-                        <button class="btn btn-white search-btn" type="button" id="buttonaddon2" disabled>
-                            <i class="bi bi-search"></i> 
-                        </button>
-                
-                        <input type="text" class="form-control" placeholder="Buscar..." aria-label="Buscar" id="searchInput">
-                        <button class="btn" type="button" id="clearButton">
-                            <i class="bi bi-x-circle"></i>
-                        </button>
+                    <div class="d-flex">
+                        <div class="input-group flex-grow-1">
+                            <button class="btn btn-white search-btn" type="button" id="buttonaddon2" disabled>
+                                <i class="bi bi-search"></i>
+                            </button>
+                            <input type="text" class="form-control" placeholder="Buscar..." aria-label="Buscar"
+                                id="searchInput">
+                            <button class="btn" type="button" id="clearButton">
+                                <i class="bi bi-x-circle"></i>
+                            </button>
+                        </div>
+
+                        <!-- Botón de Filtrar-->
+                        <div class="dropdown ms-2">
+                            <button class="btn custom-filter-btn dropdown-toggle" type="button" id="filterDropdown"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-filter me-2"></i> Filtrar
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="filterDropdown">
+                                <li><a class="dropdown-item" href="#" data-filter="todos">Mostrar todos</a></li>
+                                <li><a class="dropdown-item" href="#" data-filter="ensambladas">Computadoras
+                                        ensambladas</a></li>
+                                <li><a class="dropdown-item" href="#" data-filter="componentes">Componentes para
+                                        ensamblaje</a></li>
+                                <li><a class="dropdown-item" href="#" data-filter="periféricos">Periféricos para
+                                        computadoras</a></li>
+                                <li><a class="dropdown-item" href="#" data-filter="Combos">Combos gaming y
+                                        empresarial</a></li>
+                                <li><a class="dropdown-item" href="#" data-filter="Otros">Otros</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </form>
-                
             </div>
         </div>
     </div>
@@ -38,21 +61,55 @@
     <!-- TODO: Esta es la card que se va a generar posteriormente en una funcion-->
     <div class="container mt-5">
         <div class="row g-3 p-2 justify-content-around" id="product_container">
-             <!-- Aqui termina la card-->
+            <!-- Aqui termina la card-->
         </div> <!-- row -->
-    </div> <!-- container -->    
+    </div> <!-- container -->
     <!-- Aqui termina la card-->
+
+
+<!-- Toast de Bootstrap carrito -->
+<div class="position-fixed top-0 end-0 p-3" style="right: 15px; z-index: 1050; margin-top: 75px;">
+    <div id="toastCarrito" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="4000">
+        <div class="d-flex">
+            <div class="toast-body d-flex align-items-center">
+                <div style="width: 60px; height: 60px; background: white; display: flex; justify-content: center; align-items: center; border-radius: 5px; margin-right: 10px;">
+                    <img id="toastImagen" src="" alt="Imagen" style="max-width: 50px; max-height: 50px; object-fit: contain;">
+                </div>
+                <span id="toastMensaje"></span>
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
+
+    <!-- Toast de Bootstrap filtro-->
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1050">
+        <div id="toastCategoria" class="toast align-items-center text-white bg-primary border-0" role="alert"
+            aria-live="assertive" aria-atomic="true" data-bs-delay="4000">
+            <div class="d-flex">
+                <div class="toast-body" id="toastMensajeCat">
+                    Categoría seleccionada:
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
     <!-- Navbar y footer-->
     <script src="../js/navbar.js"></script>
-
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
-    
-    
 
 
     <script src="../js/productos.js"></script>
 </body>
+
 </html>

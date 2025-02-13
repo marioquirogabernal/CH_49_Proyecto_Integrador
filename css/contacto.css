@@ -208,7 +208,11 @@ h2::after {
     background-color: #e0f7fa;
 }
 
-
+#formularioregistro {
+    width: 100%; /* Hace que ocupe todo el espacio disponible */
+    box-sizing: border-box; /* Incluye los bordes y márgenes en el ancho total */
+    margin: 0 auto; /* Centra el formulario */
+}
 
 .floating-label {
     position: relative;
@@ -288,6 +292,8 @@ h2::after {
     color: red;
     font-size: 0.9rem;
     margin-top: 5px;
+    min-height: 25px;
+    width: 100%;
 }
 
 
@@ -340,4 +346,10 @@ h2::after {
     border-color: #0056b3; /* Cambia el borde cuando el usuario pasa el ratón */
     cursor: pointer; /* Muestra el cursor como una mano */
     box-shadow: 0 4px 10px rgba(0, 123, 255, 0.4); /* Añade una sombra sutil al hacer hover */
+}
+
+
+#pagoForm {
+    max-width: 600px; /* Ajusta según necesidad */
+    margin: 0 auto; /* Centra el formulario */
 }

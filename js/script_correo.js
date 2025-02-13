@@ -60,11 +60,11 @@ async function enviarCorreo(subjectAPI, asuntoAPI, MensajeAPI, emailDestinatario
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": "Bearer mlsn.34b759039b519a98f11af28dc6ea67fabd41da3bb28b6505b92ad659b86005b4",
+                "Authorization": "Bearer ",
             },
             body: JSON.stringify({
                 from: {
-                    email: "TECHNOLOGY_SHOP@trial-pxkjn41e1kplz781.mlsender.net",
+                    email: "",
                 },
                 to: [
                     {
@@ -81,7 +81,7 @@ async function enviarCorreo(subjectAPI, asuntoAPI, MensajeAPI, emailDestinatario
                         },
                     },
                 ],
-                template_id: "neqvygmm8kdg0p7w", // ID la plantilla
+                template_id: "", // ID la plantilla
             }),
         });
     } catch (error) {

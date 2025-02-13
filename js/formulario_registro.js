@@ -1,12 +1,12 @@
+//const URL_BASE = "http://localhost:8080/api/usuarios/";
+const URL_BASE = "http://3.145.32.161:80/api/usuarios/";
+
+
 const txtName = document.getElementById('txtName');
 const txtTel = document.getElementById('txtTel');
 const txtEmail = document.getElementById('txtEmail');
 const txtContraseña = document.getElementById('txtContraseña');
 const txtConfirmarContraseña = document.getElementById('txtConfirmarContraseña');
-
-
-let datos = JSON.parse(localStorage.getItem('datos')) || [];//añade o continua una array
-
 
 const registro = document.getElementById(`formularioregistro`);
 
@@ -16,9 +16,10 @@ const alertValidacionesTexto = document.getElementById("alertValidacionesTexto")
 
 function validarNombre() {
     const name = txtName.value.trim();
-    const reGex = /^[A-Za-z _-]{3,}$/;
+    const reGex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ'-]{3,}(?:\s[A-Za-zÁÉÍÓÚáéíóúÑñ'-]+)*$/;
     return reGex.test(name);
-}//Validar nombre
+}
+
 
 function validarNumeroCelular() {
     const numero = txtTel.value.trim();
@@ -33,12 +34,6 @@ function validarEmailUnico() {
     if (!regex.test(email)) {
         return "Correo no válido";
     }
-    
-    // Verificar si el correo ya está registrado
-    const usuarioExistente = datos.find(usuario => usuario.email === email);
-    if (usuarioExistente) {
-        return "Este correo electrónico ya está registrado.";
-    }
 
     return "";
 }
@@ -51,7 +46,7 @@ function validarContraseñaCompleta() {
     const confirmarContraseña = txtConfirmarContraseña.value.trim();
 
     if (contraseña.length < 8) {
-        return "La contraseña debe tener al menos 8 caracteres.";
+        return "La contraseña debe tener mínimo 8 caracteres";
     }
 
     if (contraseña !== confirmarContraseña) {
@@ -104,14 +99,14 @@ registro.addEventListener('submit', function (event) {
     }
 
     // Validación de email
-      // Validación de email
-      const mensajeErrorEmail = validarEmailUnico();
-      if (mensajeErrorEmail) {
-          txtEmail.classList.add("is-invalid");
-          document.getElementById("errorEmail").textContent = mensajeErrorEmail;
-          isValid = false;
-      }
-  
+    // Validación de email
+    const mensajeErrorEmail = validarEmailUnico();
+    if (mensajeErrorEmail) {
+        txtEmail.classList.add("is-invalid");
+        document.getElementById("errorEmail").textContent = mensajeErrorEmail;
+        isValid = false;
+    }
+
 
     // Validación de contraseñas
     const errorContraseña = validarContraseñaCompleta();
@@ -132,31 +127,65 @@ registro.addEventListener('submit', function (event) {
 
     // Si todo está bien, registrar usuario
     if (isValid) {
-        const usuario = {
-            nombre: txtName.value,
-            telefono: txtTel.value,
-            email: txtEmail.value,
-            password: txtContraseña.value
-        };
-        
-        datos.push(usuario);
-        localStorage.setItem("datos", JSON.stringify(datos));
-        sessionStorage.setItem("user", JSON.stringify(usuario));
-        
 
-        // Aquí se muestra el mensaje de bienvenida con SweetAlert2, incluyendo el nombre del usuario
-        Swal.fire({
-            title: `¡Bienvenido, ${usuario.nombre}!`, 
-            text: 'Estamos felices de tenerte con nosotros. ¡Disfruta de tu experiencia!',
-            icon: 'success',
-            confirmButtonText: '¡Gracias!'
-        }).then(() => {
-            // Después de cerrar la alerta, redirige al usuario
-            window.location.href = `../index.html`;
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        const usuario = JSON.stringify({
+            "email": txtEmail.value,
+            "password": txtContraseña.value,
+            "nombre": txtName.value,
+            "telefono": txtTel.value,
+            "tipo": "cliente"
         });
+
+        const requestOptions = {
+            method: "POST",
+            headers: myHeaders,
+            body: usuario,
+            redirect: "follow"
+        };
+
+        fetch(URL_BASE, requestOptions)
+            .then((response) => response.json())
+            .then((result) => {
+
+                // Extraemos solo los datos necesarios (sin password)
+                const usuarioSinPassword = {
+                    id: result.id,
+                    nombre: result.nombre,
+                    telefono: result.telefono,
+                    email: result.email,
+                    tipo: result.tipo
+                };
+
+              // Guardar en sessionStorage sin la contraseña
+              //  localStorage.setItem('user', JSON.stringify(usuarioSinPassword));
+
+                Swal.fire({
+                    title: `¡Bienvenido!`, 
+                    text: 'Estamos felices de tenerte con nosotros. ¡Disfruta de tu experiencia!',
+                    icon: 'success',
+                    confirmButtonText: '¡Gracias!'
+                }).then(() => {
+                    // Después de cerrar la alerta, redirige al usuario
+                    window.location.href = `./login.html`;
+                });
+            })
+            .catch((error) => {
+                //.error(error); 
+                txtEmail.value = "";
+                txtEmail.focus();
+
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Hubo un problema al registrar tu cuenta. Inténtalo más tarde o utiliza un correo diferente.',
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar'
+                });
+            });
     }
 });
-
 
 
 
@@ -190,22 +219,22 @@ txtEmail.addEventListener("input", () => {
 });
 
 
- // Función para alternar la visibilidad de la contraseña
- function muestraContraseña(inputId, toggleId) {
+// Función para alternar la visibilidad de la contraseña
+function muestraContraseña(inputId, toggleId) {
     const passwordInput = document.getElementById(inputId);
     const toggleIcon = document.getElementById(toggleId);
 
-    toggleIcon.addEventListener('click', function() {
-      if (passwordInput.type === 'password') {
-        passwordInput.type = 'text';
-        toggleIcon.innerHTML = '<i class="fas fa-eye-slash"></i>';
-      } else {
-        passwordInput.type = 'password';
-        toggleIcon.innerHTML = '<i class="fas fa-eye"></i>';
-      }
+    toggleIcon.addEventListener('click', function () {
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            toggleIcon.innerHTML = '<i class="fas fa-eye-slash"></i>';
+        } else {
+            passwordInput.type = 'password';
+            toggleIcon.innerHTML = '<i class="fas fa-eye"></i>';
+        }
     });
-  }
+}
 
-  // Aplicar la función a ambos campos de contraseña
-  muestraContraseña('txtContraseña', 'togglePassword');
-  muestraContraseña('txtConfirmarContraseña', 'toggleConfirmPassword');
+// Aplicar la función a ambos campos de contraseña
+muestraContraseña('txtContraseña', 'togglePassword');
+muestraContraseña('txtConfirmarContraseña', 'toggleConfirmPassword');

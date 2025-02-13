@@ -222,28 +222,7 @@
             style="display: flex; justify-content: center;  text-align: center;">
             <h2>Productos nuevos</h2>
         </div>
-        <div class="container mt-5">
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <!-- Formulario de búsqueda -->
-                    <form action="#" method="get">
-                        <div class="input-group">
-                            <button class="btn btn-white search-btn" type="button" id="buttonaddon2" disabled>
-                                <i class="bi bi-search"></i>
-                            </button>
-
-                            <input type="text" class="form-control" placeholder="Buscar..." aria-label="Buscar"
-                                id="searchInput">
-                            <button class="btn" type="button" id="clearButton">
-                                <i class="bi bi-x-circle"></i>
-                            </button>
-                        </div>
-                    </form>
-
-
-                </div>
-            </div>
-        </div>
+      
         <div class="row">
 
             <div class="container mt-5">
@@ -291,12 +270,24 @@
     </section> -->
 
 
-
+<!-- Toast de Bootstrap -->
+<div class="position-fixed top-0 end-0 p-3" style="right: 15px; z-index: 1050; margin-top: 75px;">
+    <div id="toastCarrito" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="4000">
+        <div class="d-flex">
+            <div class="toast-body d-flex align-items-center">
+                <div style="width: 60px; height: 60px; background: white; display: flex; justify-content: center; align-items: center; border-radius: 5px; margin-right: 10px;">
+                    <img id="toastImagen" src="" alt="Imagen" style="max-width: 50px; max-height: 50px; object-fit: contain;">
+                </div>
+                <span id="toastMensaje"></span>
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
 
 
 
     <!-- Nabvar and footer -->
-
 
     <!-- jQery -->
     <script src="https://byamc31.github.io/VirtualVerseCl/js/jquery-3.4.1.min.js"></script>
@@ -307,7 +298,7 @@
         crossorigin="anonymous"></script>
 
     <!-- Para las cards de productos -->
-    <script src="./js/productos.js"></script>
+    <script src="./js/index.js"></script>
 
     <script src="./js/navbar.js"></script>
 

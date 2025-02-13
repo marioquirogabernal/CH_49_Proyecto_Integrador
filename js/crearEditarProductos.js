@@ -1,3 +1,8 @@
+//const URL_BASE = "http://localhost:8080/api/productos/";
+const URL_BASE = "http://3.145.32.161:80/api/productos/";
+
+
+
 const productForm = document.getElementById('productForm');
 
 const txtNombre = document.getElementById('nombreProducto');//Nombre 
@@ -7,6 +12,28 @@ const numPrecio = document.getElementById('precioProducto');//Precio
 const categoriaProducto = document.getElementById('categoriaProducto');//Categoría
 const alertValidaciones = document.getElementById("alertValidaciones");//Alerta
 const alertValidacionesTexto = document.getElementById("alertValidacionesTexto");//Alerta??
+
+
+const authorization = localStorage.getItem("Authorization");
+
+
+window.addEventListener("load", function () {
+
+  const  user = JSON.parse(localStorage.getItem("user"));
+
+  if (user==null || user.tipo != "administrador") {
+      Swal.fire({
+          icon: "warning",
+          title: "¡Atención!",
+          text: "Para poder crear un productos deber ser administrador.",
+          confirmButtonText: "Volver a la pagina",
+          allowOutsideClick: false
+      }).then(() => {
+          window.location.href = "../../index.html";
+      });
+  }
+});
+
 
 boton_subir.addEventListener("click", () => {
   widget_cloudinary.open();
@@ -104,30 +131,39 @@ productForm.addEventListener('submit', function (event) {
     }
 
     if (isValid) {
-        const newProduct = {
-            id: items.length + 1,
-            nombre: txtNombre.value.trim(),
-            descripcion: txtDescripcion.value.trim(),
-            imagen: imagen,
-            precio: numPrecio.value.trim(),
-            categoria: categoriaProducto.value
-        };
-        
-        // Verificar si ya existen productos en el localStorage
-        let storedItems = JSON.parse(localStorage.getItem('items')) || []; // Si no hay, usar un array vacío
-        storedItems.push(newProduct);  // Agregar el nuevo producto al array
-        // Guardar el array completo de productos en el localStorage
-        localStorage.setItem('items', JSON.stringify(storedItems));
+        const myHeaders = new Headers();
 
-        Swal.fire({
-            title: 'Producto agregado correctamente',
-            text: 'El producto ha sido añadido',
-            icon: 'success',
-            confirmButtonText: 'Cerrar'
-        }).then(() => {
-            // Recargar la página después de cerrar el SweetAlert
-            window.location.reload();
-        });
+          myHeaders.append("Authorization", authorization);
+          myHeaders.append("Content-Type", "application/json");
+
+          const producto = JSON.stringify({
+            "nombre": txtNombre.value,
+            "descripcion": txtDescripcion.value,
+            "imagen": `${imagen}`,
+            "precio": `${numPrecio.value}`,
+            "categoria": `${categoriaProducto.value}`
+          });
+
+          const requestOptions = {
+            method: "POST",
+            headers: myHeaders,
+            body: producto,
+            redirect: "follow"
+        };
+
+          fetch(URL_BASE, requestOptions)
+            .then((response) => response.text())
+            .then((result) => {
+              Swal.fire({
+                title: 'Producto agregado correctamente',
+                    text: 'El producto ha sido añadido',
+                     icon: 'success',
+                     confirmButtonText: 'Cerrar'
+                 }).then(() => {
+                     window.location.reload();
+                 });
+            })
+            .catch((error) => console.error(error));
     }
 });
 
